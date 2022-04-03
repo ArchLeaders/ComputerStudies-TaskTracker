@@ -1,0 +1,2 @@
+nextcord==2.0.0a9
+oead==1.2.3
