@@ -18,6 +18,7 @@ https://github.com/ArchLeaders/ComputerStudies-TaskTracker | Source code
 **Python**
 
 nextcord | https://pypi.org/project/nextcord | Active fork of Discord.py
+
 pytz | https://pypi.org/project/pytz | Timezone database
 
 <br>
@@ -26,5 +27,7 @@ pytz | https://pypi.org/project/pytz | Timezone database
 **.NET**
 
 Discord.Net | https://github.com/discord-net/Discord.Net | C# wrapper for the Discord API
+
 Stylet | https://github.com/canton7/Stylet | WPF MVVM Framework
+
 Material Design for XAML | https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit | Styling and themes for XAML
