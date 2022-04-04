@@ -1,5 +1,19 @@
 {
+    // 'meta' should coorespond to a server
     "meta": {
-        "WakeTime": "08:30"
-    }
+        "server": 935399671017386024,
+        "logs": 960295203967746058,
+        "tasks": [
+            {
+                "time": "7:30PM",
+                "dates": [ "Wed", "Thu" ]
+            }
+        ],
+        "vars": 960363940242681856,
+        "sys_vars": null
+    },
+    "test": [
+        "one",
+        "two"
+    ]
 }
