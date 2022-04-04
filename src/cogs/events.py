@@ -16,10 +16,7 @@ class Events(commands.Cog):
     async def read_tasks(self):
         """Reads through the staged tasks"""
 
-        meta = load_database('example')['test']
-
-        for num in meta:
-            await BOT.get_channel(935399743557881896).send(num)
+        await BOT.get_channel(935399743557881896).send('__python__::**TEST MINUTE RATE**')
 
 
 def setup(bot: commands.Bot):
