@@ -17,8 +17,9 @@ def is_local_host() -> bool:
         # add TOKEN and SRC
         env.reg()
 
-    except:
-        return False
+        return True
+
+    except: { }
 
 #
 # bot client and config constants
@@ -78,10 +79,10 @@ def load_cogs():
             # format name
             if is_local_host():
                 name = file.as_posix().replace('.py', '').replace(
-                    '/app/src/cogs/', '').replace('/', '.')
+                    '/', '.').replace('src.cogs.', '')
             else:
                 name = file.as_posix().replace('.py', '').replace(
-                    '/', '.').replace('src.cogs.', '')
+                    '/app/src/cogs/', '').replace('/', '.')
 
             # load cog
             BOT.load_extension(f'cogs.{name}')
