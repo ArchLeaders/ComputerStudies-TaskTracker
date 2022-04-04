@@ -1,4 +1,4 @@
-import datetime
+import bot
 import json
 import nextcord
 import os
@@ -8,13 +8,27 @@ from nextcord import Color
 from nextcord.ext import commands
 from pathlib import Path
 
+def is_local_host() -> bool:
+    try:
+        # import local file to register the discord token
+        # this will fail if it's on a remote host
+        import env
+
+        # add TOKEN and SRC
+        env.reg()
+
+    except:
+        return False
+
 #
 # bot client and config constants
 #
 
+# get host service
+is_local_host()
+
 SRC: str = os.environ["SRC"]  # local and remote source directory
-# m-dash added for mobile support
-BOT = commands.Bot(command_prefix=('--', '—'))
+BOT = commands.Bot(command_prefix=('/')) # m-dash added for mobile support
 BOT_NAME = 'Task Tracker'
 
 # these will be client based when testing is complete
@@ -39,52 +53,41 @@ HELP_COLOR = Color(0x57A3ED)
 # helper functions
 #
 
-def update_database(database: str, obj):
-    Path(f'{SRC}/database/{database}.json').write_text(json.dumps(obj, indent=4))l
+def update_database(database: str, obj, ext: str = None):
+    _ext = 'json' if ext else ext
+    Path(f'{SRC}/database/{database}.{ext}').write_text(json.dumps(obj, indent=4))
 
 
-def load_database(database: str):
-    return json.loads(Path(f'{SRC}/database/{database}.json').read_text())
+def load_database(database: str, ext: str = None):
+    _ext = ext if ext else 'json'
+    return json.loads(Path(f'{SRC}/database/{database}.{_ext}').read_text())
 
 
 def role(ctx: commands.Context, id: int) -> nextcord.Role:
     return ctx.guild().get_role(id)
 
-
-def is_local_host() -> bool:
-    try:
-        # import local file to register the discord token
-        # this will fail if it's on a remote host
-        import env
-
-        # add TOKEN and SRC
-        env.reg()
-
-    except:
-        return False
-
-
 #
 # on ready events
 #
 
-for file in Path(f'{SRC}/src/cogs').glob('**/*.py'):
-    """Load cogs in the cog directory"""
+def load_cogs():
+    for file in Path(f'{SRC}/src/cogs').glob('**/*.py'):
+        """Load cogs in the cog directory"""
 
-    if file.is_file() and '_view.py' not in file.name:
-        # format name
-        if not is_local_host():
-            name = file.as_posix().replace('.py', '').replace(
-                '/app/src/cogs/', '').replace('/', '.')
-        else:
-            name = file.as_posix().replace('.py', '').replace(
-                '/', '.').replace('src.cogs.', '')
+        if file.is_file() and '_view.py' not in file.name:
+            # format name
+            if is_local_host():
+                name = file.as_posix().replace('.py', '').replace(
+                    '/app/src/cogs/', '').replace('/', '.')
+            else:
+                name = file.as_posix().replace('.py', '').replace(
+                    '/', '.').replace('src.cogs.', '')
 
-        # load cog
-        BOT.load_extension(f'cogs.{name}')
+            # load cog
+            BOT.load_extension(f'cogs.{name}')
 
-        # log success
-        print(f'Loaded: cogs.{name}')
+            # log success
+            print(f'Loaded: cogs.{name}')
 
 
 @BOT.event
@@ -94,6 +97,8 @@ async def on_ready():
 
     # log online status to the console
     print(f'{BOT.user} has started.')
+
+    load_cogs()
 
     # get running server id
     # SERVER_ID should be a get function not a constant
