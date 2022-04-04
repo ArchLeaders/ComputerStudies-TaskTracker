@@ -13,6 +13,7 @@
     },
     "test": [
         "one",
-        "two"
+        "two",
+        "three"
     ]
 }
