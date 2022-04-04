@@ -16,7 +16,7 @@ class Events(commands.Cog):
     async def read_tasks(self):
         """Reads through the staged tasks"""
 
-        meta = load_database('example', 'jsonc')['test']
+        meta = load_database('example')['test']
 
         for num in meta:
             await BOT.get_channel(935399743557881896).send(num)
