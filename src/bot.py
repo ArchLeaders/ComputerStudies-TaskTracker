@@ -29,11 +29,11 @@ def is_local_host() -> bool:
 is_local_host()
 
 SRC: str = os.environ["SRC"]  # local and remote source directory
-BOT = commands.Bot(command_prefix=('/')) # m-dash added for mobile support
+BOT = commands.Bot(command_prefix=('-')) # m-dash added for mobile support
 BOT_NAME = 'Task Tracker'
 
 # these will be client based when testing is complete
-SERVER_ID: int = 929941418657595482
+DB_CHANNEL: int = 961123912505258024
 LOCAL_TIME = pytz.timezone('America/Vancouver')
 
 # prompt images
@@ -65,7 +65,7 @@ def load_database(database: str, ext: str = None):
 
 
 def role(ctx: commands.Context, id: int) -> nextcord.Role:
-    return ctx.guild().get_role(id)
+    return ctx.channel.guild.get_role(id)
 
 #
 # on ready events
@@ -94,7 +94,7 @@ def load_cogs():
 @BOT.event
 async def on_ready():
     # set status
-    await BOT.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.listening, name='tasks...'))
+    await BOT.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.listening, name='tasks'))
 
     # log online status to the console
     print(f'{BOT.user} has started.')
