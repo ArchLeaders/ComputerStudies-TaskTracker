@@ -27,3 +27,4 @@ Discord.Net | https://github.com/discord-net/Discord.Net | C# wrapper for the Di
 Stylet | https://github.com/canton7/Stylet | WPF MVVM Framework<br>
 Material Design for XAML | https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit | Styling and themes for XAML<br>
 StyletWpfApp | https://github.com/ArchLeaders/Stylet-Wpf-Templates | SetupWizard WPF template<br>
+Acheron | https://github.com/ArchLeaders/Acheron | WIP C# primitives library
