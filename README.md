@@ -9,6 +9,7 @@ https://www.cplusplus.com/reference/ctime/strftime | strftime reference sheet<br
 https://dashboard.heroku.com/apps/cs-task-tracker | Hosting service<br>
 https://gist.github.com/Still34/edf0db32dede055329cebaffdc7a77a3 | Discord.Net Info<br>
 https://github.com/ArchLeaders/BotwInstaller | MVVM/WPF references<br>
+https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568 | pytz reference gist<br>
 
 <br>
 
