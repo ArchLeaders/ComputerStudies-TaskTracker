@@ -1,9 +1,12 @@
+import asyncio
+import pytz
 import json
 from pathlib import Path
 
-from nextcord import Embed, File, TextChannel, ChannelType, PermissionOverwrite
+from datetime import datetime
+from nextcord import Embed, File, TextChannel, PermissionOverwrite, CategoryChannel
 from nextcord.ext import commands, tasks
-from bot import BOT, DB_CHANNEL, HELP, HELP_COLOR, SRC, load_database, role
+from bot import BOT, DB_CHANNEL, HELP, HELP_COLOR, SRC
 
 SERVER_CONFIG = None
 SERVER_CONFIG_ID: int = 0
@@ -22,13 +25,45 @@ class Events(commands.Cog):
     async def read_tasks(self):
         """Reads through the staged tasks"""
 
-        # iterate servers
+        # get the server list
+        servers = BOT.get_channel(DB_CHANNEL).last_message.attachments[0].read()
+        servers = json.loads(servers)
 
+        # create list of python tasks
+        py_tasks = []
 
-        # download the last uploaded file
+        # iterate the servers and handle each server accordingly
+        for server, _ in servers:
+            py_tasks.append(asyncio.create_task(self.handle_server(server)))
 
+        # await all tasks
+        asyncio.gather(*py_tasks)
 
-        # iterate the tasks
+    async def handle_server(id: int):
+
+        # get local settings
+        settings = BOT.get_channel(id).last_message.attachments[0].read()
+        settings = json.loads(settings)
+
+        for time, task in settings['tasks']:
+
+            # skip tasks that are not set for the current time
+            if time != datetime.now(pytz.timezone(settings['timezone'])).strftime():
+                continue
+
+            channel = BOT.get_channel(task['channel'])
+            message = task['message']
+
+            # iterate vars replacing every instance found in the message
+            for var in settings['vars']:
+
+                # needs to be improved to support proposed features
+                str(message).replace(f'$var', str(var)
+                    ).replace(f'@role', f'<@&{task["role"]}>'
+                    ).replace(f'@user', f'<@{task["user"]}>')
+
+            # send the message in channel
+            channel.send(message)
 
     @commands.command()
     async def register(self, ctx: commands.Context, id: int = -1):
@@ -77,10 +112,7 @@ class Events(commands.Cog):
 
         # create the default config file to the settings channel
         defaults = {
-            'meta': {
-                'system': channel.id,
-                'settings': settings.id
-            },
+            'vars': [],
             'tasks': []
         }
 
@@ -97,7 +129,7 @@ class Events(commands.Cog):
         else:
             server_list = await json.loads(server_list.attachments[0].read())
 
-        server_list[channel.guild.id] = 0
+        server_list[settings.id] = 0
 
         server_list_json = Path(f'{SRC}\\tmp.json')
         server_list_json.write_text(json.dumps(server_list, indent=4))
@@ -121,7 +153,7 @@ class Events(commands.Cog):
             inline=False
         )
         embed.set_thumbnail(url=HELP)
-        embed.set_footer(text=f'ID: {channel.guild.id}')
+        embed.set_footer(text=f'ID: {settings.id}')
 
         # delete the loading message
         try: await reg.delete()
