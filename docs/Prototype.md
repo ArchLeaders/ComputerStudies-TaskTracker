@@ -8,7 +8,7 @@ This prototype is made up of three pieces, each one a key part in the product.
 
 <br>
 
-## Data Storage (DS) - Task per server
+## Data Storage (DS)
 > [Commits](https://github.com/ArchLeaders/ComputerStudies-TaskTracker/commit/503666f9f23b7d3519bb647075f7a3c95276a597)
 
 For task tracker to function on a mass scale, it needs to have definable tasks
@@ -108,7 +108,7 @@ All this data will be formatted by the SetupWizard where you can add/remove task
 
 <br>
 
-## Task Tracking (TT) – Sending reports per task
+## Task Tracking (TT)
 > [Commits](https://github.com/ArchLeaders/ComputerStudies-TaskTracker/commit/17b74d4ffece761a7d9ba06aeb191c93b60472bd)
 
 Efficiently tracking tasks is essential for this program.
