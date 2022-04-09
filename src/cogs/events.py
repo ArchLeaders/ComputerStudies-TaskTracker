@@ -39,7 +39,7 @@ class Events(commands.Cog):
         # await all tasks
         asyncio.gather(*py_tasks)
 
-    async def handle_server(id: int):
+    async def handle_server(self, id: int):
 
         # get local settings
         settings = BOT.get_channel(id).last_message.attachments[0].read()
@@ -48,9 +48,14 @@ class Events(commands.Cog):
         for time, task in settings['tasks']:
 
             # skip tasks that are not set for the current time
-            if time != datetime.now(pytz.timezone(settings['timezone'])).strftime():
+            if time != self.get_time(settings['timezone'], '%I:%m%p'):
                 continue
 
+            # check the day of the week
+            if self.get_time(settings['timezone'], '%I:%m%p') not in task['days']:
+                continue
+
+            # get the task channel and message
             channel = BOT.get_channel(task['channel'])
             message = task['message']
 
@@ -58,12 +63,18 @@ class Events(commands.Cog):
             for var in settings['vars']:
 
                 # needs to be improved to support proposed features
-                str(message).replace(f'$var', str(var)
-                    ).replace(f'@role', f'<@&{task["role"]}>'
-                    ).replace(f'@user', f'<@{task["user"]}>')
+                str(message).replace(f'${var}', str(var)
+                    ).replace('@role', f'<@&{task["role"]}>'
+                    ).replace('@user', f'<@{task["user"]}>')
 
             # send the message in channel
             channel.send(message)
+
+    def get_hour(tz: str) -> int:
+        return int(datetime.now(pytz.timezone(tz)).strftime('%I'))
+
+    def get_time(self, tz: str, strftime) -> str:
+        return datetime.now(pytz.timezone(tz)).strftime(strftime.replace('%I', self.get_hour(tz)))
 
     @commands.command()
     async def register(self, ctx: commands.Context, id: int = -1):
