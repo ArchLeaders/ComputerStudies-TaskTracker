@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SetupWizard.Lib", "SetupWizard.Lib\SetupWizard.Lib.csproj", "{95AD1692-11FD-4D20-8709-42AD54A6891A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupWizard.Hook", "SetupWizard.Tests\SetupWizard.Hook.csproj", "{D2521EFC-5C17-4A44-B0F0-1AE0A5E9FF12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupWizard.Hook", "SetupWizard.Hook\SetupWizard.Hook.csproj", "{D2521EFC-5C17-4A44-B0F0-1AE0A5E9FF12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
