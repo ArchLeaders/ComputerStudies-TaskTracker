@@ -108,6 +108,57 @@ All this data will be formatted by the SetupWizard where you can add/remove task
 
 <br>
 
+### DS: Third Iteration
+
+In ther server settings data, tasks is defined a `Dictionary<string, Dictionary<string, dynamic>>` type object, the first `string` being the datetime.
+
+This needs to be removed because all dictionary keys <ins>must</ins> be unique, this makes restricts running multiple tasks at any given time.<br>
+The new solution is to add the time as a property inside the dictionary and give a unique hex based id to each task.
+
+```jsonc
+{
+  "timezone": "America/Vancouver",
+  "vars": {
+    "user_m": "Marcus",
+    "user_a": "Alex",
+    "user_m_full": "Marcus J. Smith",
+    "user_a_full": "Alex E. Smith"
+  },
+  "tasks": {
+    0x000000: {
+    
+      // Time at which the task will be executed
+      "time": "1:20PM",
+      
+      // Days on which the task executes
+      "days": [ "sun", "mon", "fri", "sun" ],
+      
+      // Channel in which to send the message
+      "channel": 935399672988712973,
+      
+      // Role that will be pinged with @role
+      "role": 935400272463810620,
+      
+      // User that will be pinged with @user
+      "user": 783100922967621653,
+      
+      // this sequence defines which user is mentioned with $user in the message
+      // in this example, user_m will be notified on Sunday and Friday and user_a
+      // is notified on Monday and Saturday (assuming the bot started on 0)
+      "sequence": [ "user_m", "user_a" ],
+      
+      // time_now is a default variable, these are used to define dynamic objects
+      // such as the current time or date
+      "message": "@role $user needs to do something at $time_now!"
+    }
+  }
+}
+```
+
+_Note: TT:1 demonstrates code to iterate the DS:2 data._
+
+<br>
+
 ## Task Tracking (TT)
 > [Commits](https://github.com/ArchLeaders/ComputerStudies-TaskTracker/commit/17b74d4ffece761a7d9ba06aeb191c93b60472bd)
 
