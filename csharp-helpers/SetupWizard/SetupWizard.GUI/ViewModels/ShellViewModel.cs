@@ -16,14 +16,14 @@ namespace SetupWizard.GUI.ViewModels
         public static int MinHeight { get; set; } = 400;
         public static int MinWidth { get; set; } = 600;
         public static bool CanResize { get; set; } = true;
-        public string HelpLink { get; set; } = "https://github.com/ArchLeaders/stylet-wpf-templates";
-        public string Title { get; set; } = "SetupWizard.GUI";
+        public string HelpLink { get; set; } = "https://github.com/ArchLeaders/ComputerStudies-TaskTracker";
+        public string Title { get; set; } = "Task Tracker - Setup Wizard";
 
         // Error report settings
         public static bool UseGitHubUpload { get; set; } = false;
-        public string GitHubRepo { get; set; } = "stylet-wpf-templates";
-        public string DiscordInvite { get; set; } = "https://discord.gg/vPzgy5S";
-        public ulong DiscordReportChannel { get; set; } = 961334714633965569;
+        public string GitHubRepo { get; set; } = "computerstudies-tasktracker";
+        public string DiscordInvite { get; set; } = "https://github.com/ArchLeaders/ComputerStudies-TaskTracker"; // N/A
+        public ulong DiscordReportChannel { get; set; } = 935644863007981648;
 
         ///
         /// Actions
