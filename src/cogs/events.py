@@ -1,12 +1,13 @@
 import asyncio
 import pytz
 import json
-from pathlib import Path
 
+from bot import BOT, DB_CHANNEL, HELP, HELP_COLOR, SRC
 from datetime import datetime
 from nextcord import Embed, File, TextChannel, PermissionOverwrite, CategoryChannel
 from nextcord.ext import commands, tasks
-from bot import BOT, DB_CHANNEL, HELP, HELP_COLOR, SRC
+from oead import yaz0
+from pathlib import Path
 
 SERVER_CONFIG = None
 SERVER_CONFIG_ID: int = 0
@@ -43,7 +44,12 @@ class Events(commands.Cog):
 
         # get local settings
         settings = BOT.get_channel(id).last_message.attachments[0].read()
-        settings = json.loads(settings)
+
+        # decompress if compressed
+        if settings[0-4] == b'Yaz0':
+            settings = json.loads(yaz0.decompress(settings))
+        else:
+            settings = json.loads(settings)
 
         for _, task in settings['tasks']:
 
