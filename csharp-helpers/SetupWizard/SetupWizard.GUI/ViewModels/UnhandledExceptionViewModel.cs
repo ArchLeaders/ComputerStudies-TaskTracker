@@ -103,7 +103,7 @@ namespace SetupWizard.GUI.ViewModels
             string? extendedMessageColor = null, string yesButtonText = "Yes", string noButtonText = "Auto")
         {
             MessageText = $"**{title}**\n> {message}\n\n```\n{stack}\n```";
-            Message = message.ToTextBlockBold();
+            Message = message.ToTextBlock();
             Title = title;
             ButtonRight = noButtonText == "Auto" ? "Ok" : noButtonText;
             ButtonLeft = yesButtonText;

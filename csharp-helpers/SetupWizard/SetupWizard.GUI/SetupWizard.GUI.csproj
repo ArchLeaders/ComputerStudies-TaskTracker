@@ -58,7 +58,7 @@
       <HintPath>..\..\..\..\..\..\Visual Studio\Libraries\Acheron\System.Operations\bin\Debug\net6.0\System.Operations.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Formatting">
-      <HintPath>..\..\..\..\..\..\Visual Studio\Libraries\Acheron\System.Text.Formatting\bin\Debug\net6.0-windows\System.Text.Formatting.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Visual Studio\Libraries\Acheron\Acheron\Debug\net6.0-windows\System.Text.Formatting.dll</HintPath>
     </Reference>
   </ItemGroup>
 

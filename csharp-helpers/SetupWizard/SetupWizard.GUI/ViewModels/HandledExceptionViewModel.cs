@@ -129,7 +129,7 @@ namespace SetupWizard.GUI.ViewModels
             Title = title;
             Message = message;
             StackText = stack;
-            Stack = stack.ToTextBlockBold();
+            Stack = stack.ToTextBlock();
             IsReportable = isReportable;
             ShellViewModel = shell;
         }

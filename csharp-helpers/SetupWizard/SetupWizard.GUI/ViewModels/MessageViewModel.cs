@@ -88,7 +88,7 @@ namespace SetupWizard.GUI.ViewModels
             string yesButtonText = "Yes", string noButtonText = "Auto")
         {
             MessageStr = $"**{title}**\n> {message}";
-            Message = message.ToTextBlockBold();
+            Message = message.ToTextBlock();
             Title = title;
             Width = width;
             ButtonRight = noButtonText == "Auto" ? "Ok" : noButtonText;
