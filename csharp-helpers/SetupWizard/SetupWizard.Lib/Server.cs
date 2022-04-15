@@ -5,6 +5,9 @@ namespace SetupWizard.Lib
 {
     public class Server
     {
+        [JsonIgnore()]
+        public ulong Channel { get; set; }
+
         [JsonPropertyName("tasks")]
         public Dictionary<string, ServerTask> Tasks { get; set; } = new();
 
@@ -43,15 +46,6 @@ namespace SetupWizard.Lib
                 Message = message;
                 Time = time;
             }
-        }
-
-        /// <summary>
-        /// Quick serializer
-        /// </summary>
-        /// <param name="jsonFile"></param>
-        public void Write(string jsonFile)
-        {
-
         }
     }
 }
