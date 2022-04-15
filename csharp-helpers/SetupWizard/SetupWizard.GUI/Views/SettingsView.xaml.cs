@@ -23,6 +23,7 @@ namespace SetupWizard.GUI.Views
         public SettingsView()
         {
             InitializeComponent();
+            grid.MouseDown += (s, e) => grid.Focus();
         }
     }
 }

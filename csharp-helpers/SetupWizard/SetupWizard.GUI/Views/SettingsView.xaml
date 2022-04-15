@@ -5,11 +5,55 @@
              xmlns:local="clr-namespace:SetupWizard.GUI.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              d:DesignHeight="300"
              d:DesignWidth="600"
              Style="{StaticResource SetupWizard.GUI_Control}"
              mc:Ignorable="d">
-    <Grid Margin="15">
-        <Button Click="{s:Action Throw}" Content="Throw Exception" />
+    <Grid x:Name="grid"
+          Background="Transparent"
+          FocusVisualStyle="{x:Null}"
+          Focusable="True">
+
+        <ContentControl Content="{Binding LockIcon}" />
+        <StackPanel Margin="15">
+            <TextBox wpf:HintAssist.Hint="Server ID"
+                     FontSize="25"
+                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding ServerID}" />
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Margin="0,25"
+                          Background="{DynamicResource MaterialDesignPaper}"
+                          Content="Auto-Sync"
+                          IsChecked="{Binding AutoSync}"
+                          ToolTip="Automatically sync the database when changes are saved." />
+            </Grid>
+        </StackPanel>
+
+        <Grid Margin="15,0,0,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Margin="0,15"
+                    Padding="0"
+                    VerticalAlignment="Bottom"
+                    Background="{DynamicResource MaterialDesignPaper}"
+                    Content="Save"
+                    Focusable="False"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    IsTabStop="False" />
+        </Grid>
+
     </Grid>
 </UserControl>

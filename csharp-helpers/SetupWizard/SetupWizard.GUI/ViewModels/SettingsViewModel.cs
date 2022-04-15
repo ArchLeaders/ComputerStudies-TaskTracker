@@ -1,4 +1,5 @@
-﻿using SetupWizard.GUI.ViewResources.Helpers;
+﻿using SetupWizard.GUI.ViewResources;
+using SetupWizard.GUI.ViewResources.Helpers;
 using Stylet;
 using System;
 using System.Collections.Generic;
@@ -12,22 +13,28 @@ namespace SetupWizard.GUI.ViewModels
     public class SettingsViewModel : Screen
     {
         private ShellViewModel ShellViewModel { get; set; }
-        public void Throw()
+
+        private ulong _serverId = 0;
+        public ulong ServerID
         {
-            try
-            {
-                File.ReadAllBytes("D:\\void.ini");
-            }
-            catch (Exception ex)
-            {
-                if (ShellViewModel.WindowManager != null)
-                {
-                    ShellViewModel.WindowManager.Show($"{ex.Message}", "Error", isOption: true);
-                    ShellViewModel.WindowManager.Error($"{ex.Message}", $"{ex.Source}.{ex.TargetSite}\n\n[Stack Trace]\n{ex.StackTrace}\n\n[Inner Exception]\n{ex.InnerException}");
-                    ShellViewModel.ThrowException(new(ShellViewModel, "Handled Exception", ex.Message, ex.StackTrace ?? "", true));
-                }
-            }
+            get => _serverId;
+            set => SetAndNotify(ref _serverId, value);
         }
+
+        private bool _autoSync = true;
+        public bool AutoSync
+        {
+            get => _autoSync;
+            set => SetAndNotify(ref _autoSync, value);
+        }
+
+        private LockIcon _lockIcon = new();
+        public LockIcon LockIcon
+        {
+            get => _lockIcon;
+            set => SetAndNotify(ref _lockIcon, value);
+        }
+
 
         public SettingsViewModel(ShellViewModel shell)
         {
