@@ -4,6 +4,7 @@
 *env.py
 *Env.cs
 *egg-info
+*.auth.cs
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudio
