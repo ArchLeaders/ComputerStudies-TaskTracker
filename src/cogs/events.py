@@ -52,7 +52,7 @@ class Events(commands.Cog):
                 continue
 
             # check the day of the week
-            if self.get_time(settings['timezone'], '%I:%m%p') not in task['days']:
+            if self.get_time(settings['timezone'], '%I:%m%p') not in task['days'] and len(task['days']) != 0:
                 continue
 
             # get the task channel and message
