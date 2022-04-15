@@ -45,10 +45,10 @@ class Events(commands.Cog):
         settings = BOT.get_channel(id).last_message.attachments[0].read()
         settings = json.loads(settings)
 
-        for time, task in settings['tasks']:
+        for _, task in settings['tasks']:
 
             # skip tasks that are not set for the current time
-            if time != self.get_time(settings['timezone'], '%I:%m%p'):
+            if task['time'] != self.get_time(settings['timezone'], '%I:%m%p'):
                 continue
 
             # check the day of the week
