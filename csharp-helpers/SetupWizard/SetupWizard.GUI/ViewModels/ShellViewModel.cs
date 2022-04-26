@@ -20,10 +20,10 @@ namespace SetupWizard.GUI.ViewModels
         public string Title { get; set; } = "Task Tracker - Setup Wizard";
 
         // Error report settings
-        public static bool UseGitHubUpload { get; set; } = false;
+        public static bool UseGitHubUpload { get; set; } = true;
         public string GitHubRepo { get; set; } = "computerstudies-tasktracker";
         public string DiscordInvite { get; set; } = "https://github.com/ArchLeaders/ComputerStudies-TaskTracker"; // N/A
-        public ulong DiscordReportChannel { get; set; } = 935644863007981648;
+        public ulong DiscordReportChannel { get; set; } = 0;
 
         ///
         /// Actions
@@ -37,11 +37,12 @@ namespace SetupWizard.GUI.ViewModels
         ///
         #region Properties
 
-        private string _helloWorld = "Hello World!";
-        public string HelloWorld
+
+        private BindableCollection<TasksViewModel> _tasks;
+        public BindableCollection<TasksViewModel> Tasks
         {
-            get => _helloWorld;
-            set => SetAndNotify(ref _helloWorld, value);
+            get => _tasks;
+            set => SetAndNotify(ref _tasks, value);
         }
 
         #endregion
@@ -102,6 +103,7 @@ namespace SetupWizard.GUI.ViewModels
         {
             WindowManager = windowManager;
             SettingsViewModel = new(this);
+            Tasks = RanDataAccess.Get();
         }
 
         ///
