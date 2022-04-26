@@ -5,6 +5,7 @@
 *Env.cs
 *egg-info
 *.auth.cs
+*.vscode
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudio
