@@ -21,27 +21,76 @@
         <WindowChrome CaptionHeight="30" />
     </WindowChrome.WindowChrome>
 
-    <Grid x:Name="gridParent">
+    <Grid x:Name="gridParent"
+          FocusVisualStyle="{x:Null}"
+          Focusable="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
             <RowDefinition />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="1"
+        <StackPanel Grid.Row="1"
+                    Margin="25,0,0,0"
+                    Orientation="Horizontal">
+            <RadioButton Click="{s:Action ChangeView}"
+                         Content="Tasks"
+                         IsChecked="True"
+                         Style="{DynamicResource TabButton}" />
+            <RadioButton Margin="25,0,0,0"
+                         Click="{s:Action ChangeView}"
+                         Content="Varables"
+                         Style="{DynamicResource TabButton}" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="2"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
+                  FocusVisualStyle="{x:Null}"
                   HeadersVisibility="All"
-                  ItemsSource="{Binding Tasks}">
+                  ItemsSource="{Binding Tasks}"
+                  MouseDoubleClick="{s:Action Edit}"
+                  SelectedItem="{Binding SelectedTask}"
+                  Visibility="{Binding TasksVis}">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Width="100"
-                                        Binding="{Binding Path=Synced}"
-                                        CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                        Header="Synced" />
                 <DataGridTextColumn Width="100"
                                     Binding="{Binding Path=Time}"
                                     CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                    Header="Time" />
+                                    Header="Time"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn MinWidth="100"
+                                    Binding="{Binding Path=Message}"
+                                    CellStyle="{DynamicResource MaterialDesignDataGridCell}"
+                                    Header="Message"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Width="*"
+                                    CellStyle="{DynamicResource MaterialDesignDataGridCell}"
+                                    Header=""
+                                    IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  FocusVisualStyle="{x:Null}"
+                  HeadersVisibility="All"
+                  ItemsSource="{Binding Vars}"
+                  MouseDoubleClick="{s:Action Edit}"
+                  SelectedItem="{Binding SelectedVar}"
+                  Visibility="{Binding VarsVis}">
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="200"
+                                    Binding="{Binding Path=Key}"
+                                    CellStyle="{DynamicResource MaterialDesignDataGridCell}"
+                                    Header="Key"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn MinWidth="200"
+                                    Binding="{Binding Path=Value}"
+                                    CellStyle="{DynamicResource MaterialDesignDataGridCell}"
+                                    Header="Value"
+                                    IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -136,7 +185,7 @@
         </Grid>
 
         <Grid x:Name="footer"
-              Grid.Row="2"
+              Grid.Row="3"
               Background="{DynamicResource PrimaryHueDarkBrush}">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="15"
