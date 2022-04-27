@@ -20,9 +20,10 @@
                                  SecondaryColor="Blue" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/ViewThemes/Styles/Buttons/WindowChromeSimple.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/ViewThemes/Styles/Buttons/VerifyClick.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ViewThemes/Styles/Buttons/DefaultButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ViewThemes/Styles/Buttons/TabButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ViewThemes/Styles/Buttons/VerifyClick.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ViewThemes/Styles/Buttons/WindowChromeSimple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ViewThemes/Styles/ContextMenus/DefaultContextMenu.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ViewThemes/Styles/DataGrid/DefaultDataGrid.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ViewThemes/Styles/TextBoxes/DefaultTextBox.xaml" />
