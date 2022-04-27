@@ -153,6 +153,8 @@ namespace SetupWizard.GUI.Views
 
                 IntPtr handle = new WindowInteropHelper(this).Handle;
                 HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
+
+                gridParent.MouseDown += (s, e) => gridParent.Focus();
             };
 
             // Load theme file
