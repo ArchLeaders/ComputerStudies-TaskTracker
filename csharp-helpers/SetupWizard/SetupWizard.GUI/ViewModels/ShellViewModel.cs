@@ -1,6 +1,7 @@
 ﻿using SetupWizard.GUI.ViewResources.Helpers;
 using Stylet;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -30,6 +31,42 @@ namespace SetupWizard.GUI.ViewModels
         ///
         #region Actions
 
+        public void Edit()
+        {
+            if (TasksVis == Visibility.Visible)
+            {
+                MessageBox.Show(SelectedTask.Time.ToString());
+            }
+            else
+            {
+                MessageBox.Show(SelectedVar.Value);
+            }
+        }
+
+        public void Remove()
+        {
+
+        }
+
+        public void Add()
+        {
+
+        }
+
+        public void ChangeView()
+        {
+            if (TasksVis == Visibility.Visible)
+            {
+                VarsVis = Visibility.Visible;
+                TasksVis = Visibility.Collapsed;
+            }
+            else
+            {
+                VarsVis = Visibility.Collapsed;
+                TasksVis = Visibility.Visible;
+            }
+        }
+
         #endregion
 
         ///
@@ -37,12 +74,50 @@ namespace SetupWizard.GUI.ViewModels
         ///
         #region Properties
 
+        // Tasks
 
         private BindableCollection<TasksViewModel> _tasks;
         public BindableCollection<TasksViewModel> Tasks
         {
             get => _tasks;
             set => SetAndNotify(ref _tasks, value);
+        }
+
+        private TasksViewModel _selectedTask = new();
+        public TasksViewModel SelectedTask
+        {
+            get => _selectedTask;
+            set => SetAndNotify(ref _selectedTask, value);
+        }
+
+        private Visibility _tasksVis = Visibility.Visible;
+        public Visibility TasksVis
+        {
+            get => _tasksVis;
+            set => SetAndNotify(ref _tasksVis, value);
+        }
+
+        // Vars
+
+        private BindableCollection<KeyValuePair<string, string>> _vars = new();
+        public BindableCollection<KeyValuePair<string, string>> Vars
+        {
+            get => _vars;
+            set => SetAndNotify(ref _vars, value);
+        }
+
+        private KeyValuePair<string, string> _selectedVar = new();
+        public KeyValuePair<string, string> SelectedVar
+        {
+            get => _selectedVar;
+            set => SetAndNotify(ref _selectedVar, value);
+        }
+
+        private Visibility _varsVis = Visibility.Collapsed;
+        public Visibility VarsVis
+        {
+            get => _varsVis;
+            set => SetAndNotify(ref _varsVis, value);
         }
 
         #endregion
@@ -104,6 +179,8 @@ namespace SetupWizard.GUI.ViewModels
             WindowManager = windowManager;
             SettingsViewModel = new(this);
             Tasks = RanDataAccess.Get();
+
+            Vars.Add(new("Key", "Value"));
         }
 
         ///
