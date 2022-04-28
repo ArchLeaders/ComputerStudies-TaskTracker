@@ -12,7 +12,7 @@
                     <Grid>
                         <Border Name="border"
                                 Background="{DynamicResource PrimaryHueDarkBrush}"
-                                BorderBrush="Black"
+                                BorderBrush="{DynamicResource MaterialDesignPaper}"
                                 BorderThickness="0,0,1,1" />
                         <Border Name="border_accent"
                                 Background="{DynamicResource PrimaryHueMidBrush}"
@@ -302,7 +302,7 @@
                         <Border x:Name="rowHeaderBorder"
                                 Width="15"
                                 Background="Transparent"
-                                BorderBrush="Black"
+                                BorderBrush="{DynamicResource MaterialDesignPaper}"
                                 BorderThickness="0,0,1,1">
                             <StackPanel Orientation="Horizontal">
                                 <ContentPresenter VerticalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -381,7 +381,7 @@
                         <Border x:Name="columnHeaderBorder"
                                 Padding="5,3,5,3"
                                 Background="Transparent"
-                                BorderBrush="Black"
+                                BorderBrush="{DynamicResource MaterialDesignPaper}"
                                 BorderThickness="0,0,1,1">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -465,15 +465,16 @@
     <Style x:Key="MaterialDesignDataGridCell" TargetType="{x:Type DataGridCell}">
         <Setter Property="Padding" Value="5" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
         <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
                     <Grid>
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
+                        <Border Margin="-1"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{DynamicResource MaterialDesignPaper}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 SnapsToDevicePixels="True" />
                         <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -483,7 +484,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignBody}" />
+                <Setter Property="BorderThickness" Value="2" />
             </Trigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
