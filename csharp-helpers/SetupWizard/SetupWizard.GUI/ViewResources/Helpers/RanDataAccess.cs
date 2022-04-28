@@ -19,9 +19,9 @@ namespace SetupWizard.GUI.ViewResources.Helpers
                 Synced = true,
                 Time = TimeOnly.Parse("1:20PM"),
                 Days = new() { "sun", "mon" },
-                Channel = 0,
-                Role = 0,
-                User = 0,
+                Channel = "data-access",
+                Role = "tasks",
+                User = "ArchLeaders",
                 Sequence = new() { "user_a", "user_w" },
                 Message = "@role $user needs to do somethig at $time_now"
             });
@@ -31,9 +31,9 @@ namespace SetupWizard.GUI.ViewResources.Helpers
                 Synced = false,
                 Time = TimeOnly.Parse("2:50PM"),
                 Days = new() { "tue", "thu" },
-                Channel = 6,
-                Role = 2,
-                User = 5,
+                Channel = "data-access",
+                Role = "tasks",
+                User = "ArchLeaders",
                 Sequence = new() { "user_w" },
                 Message = "@role $user needs to do somethig at $time_now"
             });
@@ -43,9 +43,9 @@ namespace SetupWizard.GUI.ViewResources.Helpers
                 Synced = true,
                 Time = TimeOnly.Parse("3:25PM"),
                 Days = new() { "sat", "mon" },
-                Channel = 7,
-                Role = 1,
-                User = 3,
+                Channel = "data-access",
+                Role = "tasks",
+                User = "ArchLeaders",
                 Sequence = new() { "user_w", "user_a" },
                 Message = "@role $user needs to do somethig at $time_now"
             });
