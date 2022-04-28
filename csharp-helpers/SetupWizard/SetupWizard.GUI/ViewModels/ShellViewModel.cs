@@ -33,7 +33,7 @@ namespace SetupWizard.GUI.ViewModels
 
         public void Edit()
         {
-            if (TasksVis == Visibility.Visible)
+            if (IsTasks)
             {
                 MessageBox.Show(SelectedTask.Time.ToString());
             }
@@ -55,7 +55,7 @@ namespace SetupWizard.GUI.ViewModels
 
         public void ChangeView()
         {
-            if (TasksVis == Visibility.Visible)
+            if (IsVars)
             {
                 VarsVis = Visibility.Visible;
                 TasksVis = Visibility.Collapsed;
@@ -65,6 +65,11 @@ namespace SetupWizard.GUI.ViewModels
                 VarsVis = Visibility.Collapsed;
                 TasksVis = Visibility.Visible;
             }
+        }
+
+        public void Save()
+        {
+
         }
 
         #endregion
@@ -97,6 +102,13 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _tasksVis, value);
         }
 
+        private bool _isTasks = true;
+        public bool IsTasks
+        {
+            get => _isTasks;
+            set => SetAndNotify(ref _isTasks, value);
+        }
+
         // Vars
 
         private BindableCollection<KeyValuePair<string, string>> _vars = new();
@@ -120,6 +132,13 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _varsVis, value);
         }
 
+        private bool _isVars = false;
+        public bool IsVars
+        {
+            get => _isVars;
+            set => SetAndNotify(ref _isVars, value);
+        }
+
         #endregion
 
         ///
@@ -133,6 +152,14 @@ namespace SetupWizard.GUI.ViewModels
             get => _handledExceptionViewVisibility;
             set => SetAndNotify(ref _handledExceptionViewVisibility, value);
         }
+
+        private Visibility _itemDataVis = Visibility.Visible;
+        public Visibility ItemDataVis
+        {
+            get => _itemDataVis;
+            set => SetAndNotify(ref _itemDataVis, value);
+        }
+
 
         #endregion
 
@@ -180,7 +207,8 @@ namespace SetupWizard.GUI.ViewModels
             SettingsViewModel = new(this);
             Tasks = RanDataAccess.Get();
 
-            Vars.Add(new("Key", "Value"));
+            Vars.Add(new("user_m", "Marcus"));
+            Vars.Add(new("user_a", "Alex"));
         }
 
         ///
