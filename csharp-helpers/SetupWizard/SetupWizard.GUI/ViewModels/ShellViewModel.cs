@@ -153,6 +153,20 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _handledExceptionViewVisibility, value);
         }
 
+        private Visibility _taskEditorVisibility = Visibility.Collapsed;
+        public Visibility TaskEditorVisibility
+        {
+            get => _taskEditorVisibility;
+            set => SetAndNotify(ref _taskEditorVisibility, value);
+        }
+
+        private Visibility _varsEditorVisibility = Visibility.Collapsed;
+        public Visibility VarsEditorVisibility
+        {
+            get => _varsEditorVisibility;
+            set => SetAndNotify(ref _varsEditorVisibility, value);
+        }
+
         private Visibility _itemDataVis = Visibility.Visible;
         public Visibility ItemDataVis
         {
