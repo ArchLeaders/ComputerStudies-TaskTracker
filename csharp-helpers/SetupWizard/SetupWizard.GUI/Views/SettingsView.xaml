@@ -48,6 +48,7 @@
                     Padding="0"
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource MaterialDesignPaper}"
+                    Click="{s:Action Save}"
                     Content="Save"
                     Focusable="False"
                     FontSize="18"
