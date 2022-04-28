@@ -36,11 +36,12 @@
                     Orientation="Horizontal">
             <RadioButton Click="{s:Action ChangeView}"
                          Content="Tasks"
-                         IsChecked="True"
+                         IsChecked="{Binding IsTasks}"
                          Style="{DynamicResource TabButton}" />
             <RadioButton Margin="25,0,0,0"
                          Click="{s:Action ChangeView}"
                          Content="Varables"
+                         IsChecked="{Binding IsVars}"
                          Style="{DynamicResource TabButton}" />
         </StackPanel>
 
@@ -65,8 +66,9 @@
                                     Header="Message"
                                     IsReadOnly="True" />
                 <DataGridTextColumn Width="*"
+                                    Binding="{Binding Path=Channel}"
                                     CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                    Header=""
+                                    Header="Channel"
                                     IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
@@ -96,10 +98,12 @@
 
         <ContentControl x:Name="settings"
                         Grid.Row="1"
+                        Grid.RowSpan="2"
                         s:View.Model="{Binding SettingsViewModel}"
                         Visibility="Hidden" />
 
         <ContentControl Grid.Row="1"
+                        Grid.RowSpan="2"
                         s:View.Model="{Binding HandledExceptionViewModel}"
                         Visibility="{Binding HandledExceptionViewVisibility}" />
 
@@ -241,6 +245,48 @@
                             <ScaleTransform x:Name="footerChangeAppThemeIconScale" CenterX="12" CenterY="12" ScaleX="1" ScaleY="-1" />
                         </wpf:PackIcon.RenderTransform>
                     </wpf:PackIcon>
+                </Button>
+                <Button Width="32"
+                        Height="32"
+                        Margin="5,3,3,3"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Command="{s:Action Add}"
+                        Foreground="{DynamicResource SecondaryHueLightBrush}"
+                        ToolTip="Add a new item."
+                        Visibility="{Binding ItemDataVis}">
+                    <wpf:PackIcon Width="26"
+                                  Height="26"
+                                  Kind="AddCircleOutline" />
+                </Button>
+                <Button Width="32"
+                        Height="32"
+                        Margin="5,3,3,3"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Command="{s:Action Remove}"
+                        Foreground="{DynamicResource SecondaryHueLightBrush}"
+                        ToolTip="Remove the selected item"
+                        Visibility="{Binding ItemDataVis}">
+                    <wpf:PackIcon Width="26"
+                                  Height="26"
+                                  Kind="MinusCircleOutline" />
+                </Button>
+                <Button Width="32"
+                        Height="32"
+                        Margin="5,3,3,3"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Command="{s:Action Save}"
+                        Foreground="{DynamicResource SecondaryHueLightBrush}"
+                        ToolTip="Save changes"
+                        Visibility="{Binding ItemDataVis}">
+                    <wpf:PackIcon Width="26"
+                                  Height="26"
+                                  Kind="ContentSave" />
                 </Button>
             </StackPanel>
             <TextBlock x:Name="footerBasicErrorReport"

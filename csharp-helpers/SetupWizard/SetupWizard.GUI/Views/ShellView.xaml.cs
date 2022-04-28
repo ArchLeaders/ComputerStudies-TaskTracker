@@ -198,11 +198,13 @@ namespace SetupWizard.GUI.Views
                 {
                     Animation.DoubleAnim(footerShowSettingsIcon, nameof(footerShowSettingsIconRotate), RotateTransform.AngleProperty, 0, 200);
                     settings.Visibility = Visibility.Hidden;
+                    ((ShellViewModel)DataContext).ItemDataVis = Visibility.Visible;
                 }
                 else if (settings.Visibility == Visibility.Hidden)
                 {
                     Animation.DoubleAnim(footerShowSettingsIcon, nameof(footerShowSettingsIconRotate), RotateTransform.AngleProperty, -45, 200);
                     settings.Visibility = Visibility.Visible;
+                    ((ShellViewModel)DataContext).ItemDataVis = Visibility.Collapsed;
                 }
             };
 
