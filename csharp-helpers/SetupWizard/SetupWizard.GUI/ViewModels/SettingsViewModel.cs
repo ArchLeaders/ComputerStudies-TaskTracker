@@ -7,11 +7,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SetupWizard.GUI.ViewModels
 {
     public class SettingsViewModel : Screen
     {
+        public void Save()
+        {
+
+        }
+
         private ShellViewModel ShellViewModel { get; set; }
 
         private ulong _serverId = 0;
@@ -34,7 +40,6 @@ namespace SetupWizard.GUI.ViewModels
             get => _lockIcon;
             set => SetAndNotify(ref _lockIcon, value);
         }
-
 
         public SettingsViewModel(ShellViewModel shell)
         {
