@@ -7,11 +7,11 @@ namespace SetupWizard.Lib
         [JsonIgnore()]
         public ulong Channel { get; set; }
 
-        [JsonPropertyName("tasks")]
-        public Dictionary<string, ServerTask> Tasks { get; set; } = new();
-
         [JsonPropertyName("timezone")]
         public string Timezone { get; set; } = "";
+
+        [JsonPropertyName("tasks")]
+        public Dictionary<string, ServerTask> Tasks { get; set; } = new();
 
         [JsonPropertyName("vars")]
         public Dictionary<string, string> Vars { get; set; } = new();
