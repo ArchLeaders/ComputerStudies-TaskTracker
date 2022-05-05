@@ -33,24 +33,93 @@ namespace SetupWizard.GUI.ViewModels
 
         public void Edit()
         {
-            if (IsTasks)
+            if (IsTasks && SelectedTask != null)
             {
-                MessageBox.Show(SelectedTask.Time.ToString());
+                // This is very stupid; fix it!!
+                TaskViewModel = new()
+                {
+                    Key = SelectedTask.Key,
+                    Time = SelectedTask.Time,
+                    DateTime = SelectedTask.DateTime,
+                    Mon = SelectedTask.Mon,
+                    Tue = SelectedTask.Tue,
+                    Wed = SelectedTask.Wed,
+                    Thu = SelectedTask.Thu,
+                    Fri = SelectedTask.Fri,
+                    Channel = SelectedTask.Channel,
+                    Role = SelectedTask.Role,
+                    User = SelectedTask.User,
+                    Sequence = SelectedTask.Sequence,
+                    Message = SelectedTask.Message,
+                    Channels = SelectedTask.Channels,
+                    Roles = SelectedTask.Roles,
+                    Users = SelectedTask.Users
+                };
+
+                TempTask = SelectedTask;
             }
-            else
+            else if (IsVars && SelectedVar != null)
             {
-                MessageBox.Show(SelectedVar.Value);
+                // So is this, but it's 6 billian parameters
+                VarViewModel = new()
+                {
+                    Key = SelectedVar.Key,
+                    Value = SelectedVar.Value
+                };
+
+                TempVar = SelectedVar;
             }
+            else return;
+
+            IsAddingItem = false;
+            ItemEditVis = Visibility.Visible;
+            ItemDataVis = Visibility.Collapsed;
         }
 
         public void Remove()
         {
+            if (WindowManager == null)
+            {
+                // This should never be reached
+                MessageBox.Show("Could not load WindowManager from ShellViewModel.\nTry restarting the application.", "Error");
+                return;
+            }
 
+            if (SelectedTask == null && SelectedVar == null)
+                return;
+
+            if (!WindowManager.Show("Are you sure you wish to delete the selected item?", "Warning", true))
+                return;
+
+            if (IsTasks)
+            {
+                if (SelectedTask != null)
+                    Tasks.Remove(SelectedTask);
+            }
+            else
+            {
+                if (SelectedVar != null)
+                    Vars.Remove(SelectedVar);
+            }
         }
 
         public void Add()
         {
+            if (IsTasks)
+            {
+                TaskViewModel = new(Tasks.Count);
+                TempTask = new(Tasks.Count);
+            }
+            else if (IsVars)
+            {
+                VarViewModel = new();
+                TempVar = new();
+            }
+            else return;
 
+            IsAddingItem = true;
+            ItemEditVis = Visibility.Visible;
+            ItemDataVis = Visibility.Collapsed;
         }
 
         public void ChangeView()
@@ -69,7 +138,83 @@ namespace SetupWizard.GUI.ViewModels
 
         public void Save()
         {
+            if (VarViewModel != null)
+            {
+                for (int i = 0; i < Vars.Count; i++)
+                {
+                    if (Vars[i].Key == VarViewModel.Key)
+                    {
+                        if (WindowManager == null)
+                        {
+                            // This should never be reached
+                            MessageBox.Show("Could not load WindowManager from ShellViewModel.\nTry restarting the application.", "Error");
+                            return;
+                        }
 
+                        if (IsAddingItem)
+                            if (!WindowManager.Show($"A variable with the key '{VarViewModel.Key}' already exists. Overwrite it?", "Warning", true))
+                                return;
+
+                        Vars[i] = VarViewModel;
+                        Cleanup();
+                        return;
+                    }
+                }
+
+                Vars.Add(VarViewModel);
+                Cleanup();
+
+                void Cleanup()
+                {
+                    VarViewModel = null;
+                    ItemEditVis = Visibility.Collapsed;
+                    ItemDataVis = Visibility.Visible;
+                    SelectedVar = VarViewModel;
+                }
+            }
+            else if (TaskViewModel != null)
+            {
+                ItemDataVis = Visibility.Visible;
+                ItemEditVis = Visibility.Collapsed;
+                TaskViewModel.Time = TimeOnly.Parse(TaskViewModel.DateTime.ToString("h:mm tt"));
+
+                for (int i = 0; i < Tasks.Count; i++)
+                {
+                    if (Tasks[i].Key == TaskViewModel.Key)
+                    {
+                        Tasks[i] = TaskViewModel;
+                        TaskViewModel = null;
+                        return;
+                    }
+                }
+
+                Tasks.Add(TaskViewModel);
+                SelectedTask = TaskViewModel;
+                TaskViewModel = null;
+            }
+            else
+            {
+                // Sync
+            }
+        }
+
+        public void Cancel()
+        {
+            if (WindowManager == null)
+            {
+                // This should never be reached
+                MessageBox.Show("Could not load WindowManager from ShellViewModel.\nTry restarting the application.", "Error");
+                return;
+            }
+
+            if (!WindowManager.Show($"Discard changes? This connot be undone.", "Warning", true))
+                return;
+
+            TaskViewModel = null;
+            VarViewModel = null;
+            ItemEditVis = Visibility.Collapsed;
+            ItemDataVis = Visibility.Visible;
+            return;
         }
 
         #endregion
@@ -79,17 +224,23 @@ namespace SetupWizard.GUI.ViewModels
         ///
         #region Properties
 
+        // Misc
+
+        public bool IsAddingItem { get; set; } = false;
+        public TaskViewModel? TempTask { get; set; } = null;
+        public VarViewModel? TempVar { get; set; } = null;
+
         // Tasks
 
-        private BindableCollection<TasksViewModel> _tasks;
-        public BindableCollection<TasksViewModel> Tasks
+        private BindableCollection<TaskViewModel> _tasks = new();
+        public BindableCollection<TaskViewModel> Tasks
         {
             get => _tasks;
             set => SetAndNotify(ref _tasks, value);
         }
 
-        private TasksViewModel _selectedTask = new();
-        public TasksViewModel SelectedTask
+        private TaskViewModel? _selectedTask;
+        public TaskViewModel? SelectedTask
         {
             get => _selectedTask;
             set => SetAndNotify(ref _selectedTask, value);
@@ -111,15 +262,15 @@ namespace SetupWizard.GUI.ViewModels
 
         // Vars
 
-        private BindableCollection<KeyValuePair<string, string>> _vars = new();
-        public BindableCollection<KeyValuePair<string, string>> Vars
+        private BindableCollection<VarViewModel> _vars = new();
+        public BindableCollection<VarViewModel> Vars
         {
             get => _vars;
             set => SetAndNotify(ref _vars, value);
         }
 
-        private KeyValuePair<string, string> _selectedVar = new();
-        public KeyValuePair<string, string> SelectedVar
+        private VarViewModel? _selectedVar = null;
+        public VarViewModel? SelectedVar
         {
             get => _selectedVar;
             set => SetAndNotify(ref _selectedVar, value);
@@ -174,6 +325,12 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _itemDataVis, value);
         }
 
+        private Visibility _itemEditVis = Visibility.Collapsed;
+        public Visibility ItemEditVis
+        {
+            get => _itemEditVis;
+            set => SetAndNotify(ref _itemEditVis, value);
+        }
 
         #endregion
 
@@ -192,6 +349,20 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _handledExceptionViewModel, value);
         }
 
+        private TaskViewModel? _taskViewModel = null;
+        public TaskViewModel? TaskViewModel
+        {
+            get => _taskViewModel;
+            set => SetAndNotify(ref _taskViewModel, value);
+        }
+
+        private VarViewModel? _varViewModel = null;
+        public VarViewModel? VarViewModel
+        {
+            get => _varViewModel;
+            set => SetAndNotify(ref _varViewModel, value);
+        }
+
         // App
         public bool CanFullscreen { get; set; } = CanResize;
         public ResizeMode ResizeMode { get; set; } = CanResize ? ResizeMode.CanResize : ResizeMode.CanMinimize;
@@ -199,9 +370,12 @@ namespace SetupWizard.GUI.ViewModels
 
         public void ThrowException(HandledExceptionViewModel ex)
         {
-            WindowManager.Error(ex.Message, ex.StackText, ex.Title);
-            HandledExceptionViewModel = ex;
-            HandledExceptionViewVisibility = Visibility.Visible;
+            if (WindowManager != null)
+            {
+                WindowManager.Error(ex.Message, ex.StackText, ex.Title);
+                HandledExceptionViewModel = ex;
+                HandledExceptionViewVisibility = Visibility.Visible;
+            }
         }
 
         public void Help()
