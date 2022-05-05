@@ -66,7 +66,7 @@
                                     Header="Message"
                                     IsReadOnly="True" />
                 <DataGridTextColumn Width="*"
-                                    Binding="{Binding Path=Channel}"
+                                    Binding="{Binding Path=Channel.Value}"
                                     CellStyle="{DynamicResource MaterialDesignDataGridCell}"
                                     Header="Channel"
                                     IsReadOnly="True" />
@@ -95,6 +95,14 @@
                                     IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
+
+        <ContentControl Grid.Row="1"
+                        Grid.RowSpan="2"
+                        s:View.Model="{Binding TaskViewModel}" />
+
+        <ContentControl Grid.Row="1"
+                        Grid.RowSpan="2"
+                        s:View.Model="{Binding VarViewModel}" />
 
         <ContentControl x:Name="settings"
                         Grid.Row="1"
@@ -253,6 +261,7 @@
                         HorizontalAlignment="Right"
                         Background="{DynamicResource PrimaryHueDarkBrush}"
                         Command="{s:Action Add}"
+                        Focusable="False"
                         Foreground="{DynamicResource SecondaryHueLightBrush}"
                         ToolTip="Add a new item."
                         Visibility="{Binding ItemDataVis}">
@@ -267,6 +276,7 @@
                         HorizontalAlignment="Right"
                         Background="{DynamicResource PrimaryHueDarkBrush}"
                         Command="{s:Action Remove}"
+                        Focusable="False"
                         Foreground="{DynamicResource SecondaryHueLightBrush}"
                         ToolTip="Remove the selected item"
                         Visibility="{Binding ItemDataVis}">
@@ -280,13 +290,43 @@
                         Padding="0"
                         HorizontalAlignment="Right"
                         Background="{DynamicResource PrimaryHueDarkBrush}"
-                        Command="{s:Action Save}"
+                        Command="{s:Action Edit}"
+                        Focusable="False"
                         Foreground="{DynamicResource SecondaryHueLightBrush}"
-                        ToolTip="Save changes"
+                        ToolTip="Edit the selected item"
                         Visibility="{Binding ItemDataVis}">
                     <wpf:PackIcon Width="26"
                                   Height="26"
+                                  Kind="Edit" />
+                </Button>
+                <Button Width="32"
+                        Height="32"
+                        Margin="5,3,3,3"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Command="{s:Action Save}"
+                        Focusable="False"
+                        Foreground="{DynamicResource SecondaryHueLightBrush}"
+                        ToolTip="Save changes">
+                    <wpf:PackIcon Width="26"
+                                  Height="26"
                                   Kind="ContentSave" />
+                </Button>
+                <Button Width="32"
+                        Height="32"
+                        Margin="5,3,3,3"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Command="{s:Action Cancel}"
+                        Focusable="False"
+                        Foreground="{DynamicResource SecondaryHueLightBrush}"
+                        ToolTip="Discard changes"
+                        Visibility="{Binding ItemEditVis}">
+                    <wpf:PackIcon Width="26"
+                                  Height="26"
+                                  Kind="Close" />
                 </Button>
             </StackPanel>
             <TextBlock x:Name="footerBasicErrorReport"
