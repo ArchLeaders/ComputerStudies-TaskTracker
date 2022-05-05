@@ -1,0 +1,24 @@
+.about-main {
+    padding: 25px;
+    max-width: 1000px;
+}
+
+.about-main p {
+    margin: 15px 0px 15px 15px;
+}
+
+.about-main hr {
+    margin: 0px 15px;
+    height: 1px;
+    background: var(--primary-light);
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 700px;
+}
+
+h3 {
+    margin-top: 40px;
+    font-size: 18px;
+}
