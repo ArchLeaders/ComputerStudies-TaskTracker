@@ -15,19 +15,30 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type AvalonEdit:TextEditor}">
                     <Grid>
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
+                        <Border Name="outline"
+                                Margin="0"
+                                Background="{DynamicResource PrimaryHueMidBrush}"
                                 CornerRadius="5">
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="10"
                                                   Opacity="0.4"
                                                   ShadowDepth="2" />
                             </Border.Effect>
+                        </Border>
+                        <Border Margin="1"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="4" />
+                        <Border x:Name="accent"
+                                Margin="1"
+                                Background="{DynamicResource PrimaryHueLightBrush}"
+                                CornerRadius="4"
+                                Opacity="0" />
+                        <Border Name="Border" Background="Transparent">
                             <ScrollViewer x:Name="PART_ScrollViewer"
                                           Margin="{TemplateBinding Padding}"
                                           HorizontalContentAlignment="Left"
                                           VerticalContentAlignment="Top"
+                                          Background="Transparent"
                                           CanContentScroll="True"
                                           Content="{Binding TextArea, RelativeSource={RelativeSource TemplatedParent}}"
                                           Focusable="False"
@@ -42,6 +53,64 @@
                         <Trigger Property="WordWrap" Value="True">
                             <Setter TargetName="PART_ScrollViewer" Property="HorizontalScrollBarVisibility" Value="Disabled" />
                         </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="accent"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1"
+                                                             Duration="0:0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="accent"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="{x:Null}"
+                                                             Duration="0:0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <ThicknessAnimation Storyboard.TargetName="outline"
+                                                                Storyboard.TargetProperty="Margin"
+                                                                To="-1"
+                                                                Duration="0:0:0:0.1" />
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <ThicknessAnimation Storyboard.TargetName="outline"
+                                                                Storyboard.TargetProperty="Margin"
+                                                                To="0"
+                                                                Duration="0:0:0:0.1" />
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
