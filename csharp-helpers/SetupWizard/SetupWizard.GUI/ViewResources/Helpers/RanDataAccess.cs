@@ -1,52 +1,42 @@
 ﻿using SetupWizard.GUI.ViewModels;
 using Stylet;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SetupWizard.GUI.ViewResources.Helpers
 {
     internal class RanDataAccess
     {
-        public static BindableCollection<TasksViewModel> Get()
+        public static BindableCollection<TaskViewModel> Get()
         {
-            BindableCollection<TasksViewModel> tasks = new();
+            BindableCollection<TaskViewModel> tasks = new();
 
-            tasks.Add(new()
+            tasks.Add(new(0)
             {
-                Synced = true,
                 Time = TimeOnly.Parse("1:20PM"),
-                Days = new() { "sun", "mon" },
-                Channel = "data-access",
-                Role = "tasks",
-                User = "ArchLeaders",
-                Sequence = new() { "user_a", "user_w" },
+                Channel = new(0001, "data-access"),
+                Role = new(0001, "tasks"),
+                User = new(0001, "ArchLeaders"),
+                Sequence = "user(user_a, user_m)",
                 Message = "@role $user needs to do somethig at $time_now"
             });
 
-            tasks.Add(new()
+            tasks.Add(new(1)
             {
-                Synced = false,
                 Time = TimeOnly.Parse("2:50PM"),
-                Days = new() { "tue", "thu" },
-                Channel = "data-access",
-                Role = "tasks",
-                User = "ArchLeaders",
-                Sequence = new() { "user_w" },
+                Channel = new(0001, "data-access"),
+                Role = new(0001, "tasks"),
+                User = new(0001, "ArchLeaders"),
+                Sequence = "user(user_m)",
                 Message = "@role $user needs to do somethig at $time_now"
             });
 
-            tasks.Add(new()
+            tasks.Add(new(2)
             {
-                Synced = true,
                 Time = TimeOnly.Parse("3:25PM"),
-                Days = new() { "sat", "mon" },
-                Channel = "data-access",
-                Role = "tasks",
-                User = "ArchLeaders",
-                Sequence = new() { "user_w", "user_a" },
+                Channel = new(0001, "data-access"),
+                Role = new(0001, "tasks"),
+                User = new(0001, "ArchLeaders"),
+                Sequence = "user(user_m, user_a)",
                 Message = "@role $user needs to do somethig at $time_now"
             });
 
