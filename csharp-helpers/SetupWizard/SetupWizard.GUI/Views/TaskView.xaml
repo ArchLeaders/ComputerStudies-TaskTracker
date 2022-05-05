@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="SetupWizard.GUI.Views.TaskView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SetupWizard.GUI.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             d:DesignHeight="490"
+             d:DesignWidth="600"
+             Background="{DynamicResource MaterialDesignPaper}"
+             mc:Ignorable="d">
+    <ScrollViewer Margin="0,3,3,-1">
+        <Grid Margin="9,10,5,10" ScrollViewer.CanContentScroll="False">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="70" />
+
+                <RowDefinition Height="20" />
+                <RowDefinition Height="50" />
+
+                <RowDefinition Height="20" />
+                <RowDefinition Height="50" />
+
+                <RowDefinition Height="20" />
+                <RowDefinition Height="50" />
+
+                <RowDefinition Height="20" />
+                <RowDefinition Height="50" />
+
+                <RowDefinition Height="20" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="5,35,0,0"
+                       FontSize="10"
+                       Foreground="{DynamicResource PrimaryHueMidBrush}"
+                       Text="{Binding Key}" />
+
+            <TextBlock Text="{Binding Message}" Visibility="Collapsed" />
+
+            <StackPanel Orientation="Horizontal">
+
+                <TextBlock Margin="5"
+                           VerticalAlignment="Center"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Text="Task Editor" />
+
+                <wpf:TimePicker Width="150"
+                                Margin="20,0,0,0"
+                                wpf:HintAssist.Hint="Time"
+                                SelectedTime="{Binding DateTime}" />
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="1"
+                          VerticalAlignment="Top"
+                          HorizontalScrollBarVisibility="Visible">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Content="Monday"
+                              IsChecked="{Binding Mon}"
+                              Style="{DynamicResource MaterialDesignFilterChipAccentOutlineCheckBox}" />
+                    <CheckBox Content="Tuesday"
+                              IsChecked="{Binding Tue}"
+                              Style="{DynamicResource MaterialDesignFilterChipAccentOutlineCheckBox}" />
+                    <CheckBox Content="Wednesday"
+                              IsChecked="{Binding Wed}"
+                              Style="{DynamicResource MaterialDesignFilterChipAccentOutlineCheckBox}" />
+                    <CheckBox Content="Thursday"
+                              IsChecked="{Binding Thu}"
+                              Style="{DynamicResource MaterialDesignFilterChipAccentOutlineCheckBox}" />
+                    <CheckBox Content="Friday"
+                              IsChecked="{Binding Fri}"
+                              Style="{DynamicResource MaterialDesignFilterChipAccentOutlineCheckBox}" />
+                    <CheckBox Content="Saturday"
+                              IsChecked="{Binding Sat}"
+                              Style="{DynamicResource MaterialDesignFilterChipAccentOutlineCheckBox}" />
+                    <CheckBox Content="Sunday"
+                              IsChecked="{Binding Sun}"
+                              Style="{DynamicResource MaterialDesignFilterChipAccentOutlineCheckBox}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <TextBlock Grid.Row="2"
+                       FontSize="12"
+                       Text="Sequence" />
+
+            <TextBox Grid.Row="3"
+                     Height="36"
+                     Text="{Binding Sequence}" />
+
+            <TextBlock Grid.Row="4"
+                       VerticalAlignment="Bottom"
+                       FontSize="12"
+                       Text="Channel" />
+
+            <ComboBox Grid.Row="5"
+                      Height="36"
+                      ItemsSource="{Binding Channels}"
+                      ScrollViewer.CanContentScroll="False"
+                      SelectedItem="{Binding Channel}">
+                <ComboBox.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <TextBlock Text="{Binding Path=Value}" />
+                    </ItemContainerTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Grid.Row="6"
+                       VerticalAlignment="Bottom"
+                       FontSize="12"
+                       Text="User" />
+
+            <ComboBox Grid.Row="7"
+                      Height="36"
+                      ItemsSource="{Binding Users}"
+                      ScrollViewer.CanContentScroll="False"
+                      SelectedItem="{Binding User}">
+                <ComboBox.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <TextBlock Text="{Binding Path=Value}" />
+                    </ItemContainerTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Grid.Row="8"
+                       VerticalAlignment="Bottom"
+                       FontSize="12"
+                       Text="Role" />
+
+            <ComboBox Grid.Row="9"
+                      Height="36"
+                      ItemsSource="{Binding Roles}"
+                      ScrollViewer.CanContentScroll="False"
+                      SelectedItem="{Binding Role}">
+                <ComboBox.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <TextBlock Text="{Binding Path=Value}" />
+                    </ItemContainerTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Grid.Row="10"
+                       VerticalAlignment="Bottom"
+                       FontSize="12"
+                       Text="Message" />
+
+            <avalonEdit:TextEditor Grid.Row="11"
+                                   MinHeight="150"
+                                   Margin="0,7"
+                                   Padding="9"
+                                   Style="{DynamicResource FloatingTextEditor}" />
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>
