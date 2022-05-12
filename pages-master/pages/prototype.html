@@ -70,7 +70,9 @@
             <a href="#outline" class="btn">Read More</a>
         </div>
     </header>
+
     <hr class="gradient-split">
+
     <section id="outline">
         <h1>Outline</h1>
         <ul class="inner-list first-level-ul">
@@ -92,16 +94,19 @@
             <br>
             <li><a href="#server-configuration">Server Configuration</a></li>
             <ul class="inner-list">
-                <li><a href="#server-configuration-1">Iteration #1</a></li>
+                <li><a href="#server-configuration-1">Summary</a></li>
+                <li><a href="#server-configuration-2">Changes</a></li>
             </ul>
         </ul>
     </section>
+
     <hr class="gradient-split">
+
     <section id="data-storage" class="iter-data">
         <h1>DS: Data Storage</h1>
         <div>
-            For Task Tracker to function on a mass scale, it needs to have definable tasks than run on a per-server basis.
-            This means the information for each server’s tasks needs to be stored somewhere.
+            For Task Tracker to function on a mass scale, it needs to have definable tasks that run on a per-server basis.
+            This means the information for each server needs to be stored somewhere.
             <br><br>
             This section goes through each attempt of solving this issue.
             <br><br>
@@ -189,12 +194,87 @@
         <h1>SC: Server Configuration</h1>
         <div>
 
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, obcaecati!
+            For the end-user to add and remove tasks, they need a user-friendly interface to do that.
+            Most Discord bots have their own website for adding it to your server and configuring it.
+            <br>
+            Some popular examples would be YAGPDB (<ins><a href="https://yagpdb.xyz">yagpdb.xyz</a></ins>) and MEE6 (<ins><a href="https://mee6.xyz">mee6.xyz</a></ins>).<br><br>
+
+            The primary issue with this approach is money, it cost a bit annually to host a website, which is one of the reasons I chose not to do this.
+            (I did later figure out how to host a website for free using GitHub Pages. I.e., this website)
+
+            <br><br>
+
+            The second reason for not creating a web-based configuration system is merely due to my lack of knowledge in JavaScript or another web-based programming language.
+            So I instead settled on making a C# compiled Desktop application.
+            <br><br>
+            
+            <i>Note: This section does not go through each iteration like before, but summarizes the whole process and then outlines some changes made throughout development at the end.</i>
+
             <br><br>
                         
             <!-- Header 1 -->
-            <h2 id="server-configuration-1">SC: Iteration #1</h2><hr>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, obcaecati!
+            <h2 id="server-configuration-1">SC: Summary</h2><hr>
+            The application <ins><a href="">started</a></ins> with just a <ins><a href="">WPF template</a></ins> I developed last year and was finalized in early April of this year.
+
+            <br><br><img class="doc-img" src="../res/prototype/TemplateImage.png"><br><br>
+
+            The WPF template, built with C# 10 and DotNET 6.0, has built-in support for GitHub/Discord error reporting, customizable dark and light themes,
+            and many other features useful for development.
+            I ended up saving a lot of time by using this as a base for my application.
+
+            <br><br>
+
+            I then made a basic user interface, aiming to create a visual representation of the local settings data.
+            And before long I had three views set up to display their corresponding data in the local settings.
+            
+            <br><br>
+
+            <ul>
+                <li><b>timezone</b> | The Timezone setting is defined in the server settings panel in a TextBox.</li>
+                <br>
+                <li><b>tasks</b> | The servers Tasks are held in a BindableCollection&lt;TaskViewModel&gt; bound to a DataGrid element.</li>
+                <br>
+                <li><b>vars</b> | The servers Vars (Variables) are inside a BindableCollection&lt;VarViewModel&gt; and bound to the second DataGrid element.</li>
+            </ul>
+
+            <br><hr>
+
+            The next hurdle was synchronizing the user's server. First, a key (channel id) is kept locally in the application settings;
+            with this, the actual synchronizing can be done with the unofficial Discord API <ins><a href="">Discord.NET</a></ins> and
+            a bit of logic to connect the bot and upload the serialized data.
+            This solution is not ideal, as it allows users to <i>mess it up</i> easily by not adding the key,
+            or changing it in any way. I intend to find a better solution to this in the future.
+
+            <br><br>
+
+            Finally, with all the main features implemented, I cleaned up a few things here and there, doing a few basic tests along the way,
+            and built a release version that the Python side could reference.
+
+            <br><br>
+
+            <!-- Header 2 -->
+            <h2 id="server-configuration-2">SC: Changes</h2><hr>
+
+            In this section, a list of changes is documented with an idea, issue, or just an original implementation ( i ) and a solution to the idea ( a ).
+
+            <br><br>
+
+            <code><b>i</b>. Use the DataGrid to edit the task properties.</code>
+            <div style="height: 5px;"></div>
+            <code><b>a</b>. This was found to be very inefficient and was scrapped very early in development.</code>
+
+            <br><br>
+
+            <code><b>i</b>. Allowing users to add new items using the DataGrid default implementation.</code>
+            <div style="height: 5px;"></div>
+            <code><b>a</b>. This prevents the program from stopping the user if required data fields are missing, this behavior was removed.</code>
+
+            <br><br>
+
+            <code><b>i</b>. When synchronizing, the thread continued before the bot had connected, meaning it was never known when the server had fully synchronized.</code>
+            <div style="height: 5px;"></div>
+            <code><b>a</b>. This is fixed with an infinite loop running on a side thread to await synchronizing, when it has fully synchronized, the loop is broken.</code>
+
             <br><br>
         </div>
     </section>
