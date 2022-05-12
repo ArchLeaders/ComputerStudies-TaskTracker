@@ -1,6 +1,6 @@
 .showcase:before {
     content: '';
-    background: linear-gradient(160deg, var(--secondary-dark), var(--paper), var(--paper) 120%);
+    background: url('../res/download.png') no-repeat center center/cover;
     position: absolute;
     top: 0;
     left: 0;

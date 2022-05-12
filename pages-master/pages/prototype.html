@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="../css/prototype.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Vazirmatn&display=swap"
-        rel="stylesheet">
     <title>Task Tracker</title>
 </head>
 
@@ -30,7 +25,7 @@
                 <li><a href="../pages/download.html">Download</a></li>
                 <li><a href="../pages/about.html">About</a></li>
                 <hr>
-                <li><a href="" target="_blank">Discord</a></li>
+                <li><a href="https://discord.gg/XkAfvz7ZcF" target="_blank">Discord</a></li>
                 <li><a href="https://github.com/ArchLeaders" target="_blank">GitHub</a></li>
             </ul>
         </div>
@@ -40,16 +35,16 @@
         <div class="header">
             <ul class="header-menu">
                 <li><a href="../"><img src="../res/icon.svg" height="35px"></a></li>
-                <li><a href="../">Home</a></li>
-                <li><a href="../pages/download.html">Download</a></li>
-                <li><a href="../pages/about.html">About</a></li>
+                <li><a href="./prototype.html">Prototype</a></li>
+                <li><a href="./download.html">Download</a></li>
+                <li><a href="./about.html">About</a></li>
             </ul>
             <a href="../" class="title">
                 Task Tracker
             </a>
             <ul class="header-menu links">
                 <li>
-                    <a href="" target="_blank">
+                    <a href="https://discord.gg/XkAfvz7ZcF" target="_blank">
                         <img src="../res/discord-icon.svg" height="35px">
                     </a>
                     <div></div>
@@ -214,7 +209,7 @@
                         
             <!-- Header 1 -->
             <h2 id="server-configuration-1">SC: Summary</h2><hr>
-            The application <ins><a href="">started</a></ins> with just a <ins><a href="">WPF template</a></ins> I developed last year and was finalized in early April of this year.
+            The application <ins><a href="https://github.com/ArchLeaders/TaskTracker/tree/345a210182eaafbe19adfcba48a687f7ff3b1b96">started</a></ins> with just a <ins><a href="https://github.com/ArchLeaders/Stylet-Wpf-Templates/releases/tag/1.4.0">WPF template</a></ins> I developed last year and was finalized in early April of this year.
 
             <br><br><img class="doc-img" src="../res/prototype/TemplateImage.png"><br><br>
 
@@ -240,7 +235,7 @@
             <br><hr>
 
             The next hurdle was synchronizing the user's server. First, a key (channel id) is kept locally in the application settings;
-            with this, the actual synchronizing can be done with the unofficial Discord API <ins><a href="">Discord.NET</a></ins> and
+            with this, the actual synchronizing can be done with the unofficial Discord API <ins><a href="https://github.com/discord-net/Discord.Net">Discord.NET</a></ins> and
             a bit of logic to connect the bot and upload the serialized data.
             This solution is not ideal, as it allows users to <i>mess it up</i> easily by not adding the key,
             or changing it in any way. I intend to find a better solution to this in the future.

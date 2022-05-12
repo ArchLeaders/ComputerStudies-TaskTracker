@@ -5,41 +5,75 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <title>Task Tracker - About</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/download.css">
+    <title>Task Tracker - Download</title>
 </head>
 
-<body class="container">
-    <script src="../app.js"></script>
-    <header>
-        <div class="header-left">
-            <a href="../index.html">
-                <img src="../res/icon.svg" height="60px" />
-            </a>
+<body>
+
+    <div class="menu-wrap">
+        <input type="checkbox" class="toggler">
+        <div class="hamburger">
+            <div></div>
+        </div>
+        <div class="menu">
             <ul>
-                <a href="./products.html">Products</a>
-                <a href="./download.html">Download</a>
-                <a href="./about.html">About</a>
+                <hr>
+                <li><a href="../">Home</a></li>
+                <li><a href="./prototype.html">Prototype</a></li>
+                <li><a href="./about.html">About</a></li>
+                <hr>
+                <li><a href="https://discord.gg/XkAfvz7ZcF" target="_blank">Discord</a></li>
+                <li><a href="https://github.com/ArchLeaders" target="_blank">GitHub</a></li>
             </ul>
         </div>
-        <div class="header-right">
-            <a href="https://github.com/ArchLeaders">
-                <img src="../res/github-icon.svg" height="40px">
+    </div>
+
+    <header class="showcase">
+        <div class="header">
+            <ul class="header-menu">
+                <li><a href="../"><img src="../res/icon.svg" height="35px"></a></li>
+                <li><a href="./prototype.html">Prototype</a></li>
+                <li><a href="./download.html">Download</a></li>
+                <li><a href="./about.html">About</a></li>
+            </ul>
+            <a href="./" class="title">
+                Task Tracker
             </a>
-            <a href="https://discord.com/app" target="_blank">
-                <img src="../res/discord-icon.svg" height="40px">
-            </a>
+            <ul class="header-menu links">
+                <li>
+                    <a href="https://discord.gg/XkAfvz7ZcF" target="_blank">
+                        <img src="../res/discord-icon.svg" height="35px">
+                    </a>
+                    <div></div>
+                </li>
+                <li>
+                    <a href="https://github.com/ArchLeaders" target="_blank">
+                        <img src="../res/github-icon.svg" height="35px">
+                    </a>
+                    <div></div>
+                </li>
+            </ul>
+        </div>
+        <div class="container showcase-inner">
+            <h1>Download Center</h1>
+            <p>
+                Easily access the TaskTracker Server Manager builds or the complete source code all from here.
+            </p>
+            <div>
+                <a href="https://github.com/ArchLeaders/TaskTracker" class="btn">
+                    Source Code
+                </a>
+
+                <a href="https://github.com/ArchLeaders/TaskTracker/tree/master/csharp-helpers/SetupWizard/"
+                    class="btn">
+                    Setup Wizard (x64)
+                </a>
+            </div>
         </div>
     </header>
-    <hr class="header-split">
-    <main>
-
-    </main>
-    <footer>Footer</footer>
 </body>
 
 </html>
