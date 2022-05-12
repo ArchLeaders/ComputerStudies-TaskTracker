@@ -45,6 +45,9 @@ namespace SetupWizard.GUI.Models
                 SocketGuildChannel guildChannel = (SocketGuildChannel)Client.GetChannel(settingsChannelId);
                 IGuild guild = guildChannel.Guild;
 
+                TaskModel.Channels.Clear();
+                TaskModel.Roles.Clear();
+
                 foreach (ITextChannel serverChannel in await guild.GetTextChannelsAsync())
                 {
                     string category = "";
