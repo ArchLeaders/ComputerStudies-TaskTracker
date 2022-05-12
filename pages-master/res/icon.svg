@@ -9,9 +9,9 @@
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    sodipodi:docname="icon.svg"
-   inkscape:export-filename="D:\School\Computor Studies 10\Prototype\csharp-helpers\SetupWizard\SetupWizard.GUI\ViewResources\Images\16_icon.png"
-   inkscape:export-xdpi="3"
-   inkscape:export-ydpi="3"
+   inkscape:export-filename="D:\School\Computor Studies 10\Prototype - Master (de-synced)\csharp-helpers\SetupWizard\SetupWizard.GUI\ViewResources\Images\256_icon.png"
+   inkscape:export-xdpi="48"
+   inkscape:export-ydpi="48"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -41,11 +41,11 @@
      inkscape:snap-page="true"
      inkscape:snap-global="false"
      inkscape:zoom="1.1849563"
-     inkscape:cx="367.5241"
+     inkscape:cx="345.16041"
      inkscape:cy="190.30238"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
-     inkscape:window-x="-8"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
@@ -166,7 +166,7 @@
      id="layer1">
     <path
        id="path846"
-       style="fill:#448ad9;fill-opacity:1;stroke-width:2.61364;stroke-linecap:round;stroke-linejoin:round"
+       style="fill:#3a83e1;fill-opacity:1;stroke-width:2.61364;stroke-linecap:round;stroke-linejoin:round"
        d="m 256,47.142578 c -33.43116,0.168253 -66.33345,8.359332 -95.94141,23.884766 -5.96761,73.373176 -12.71945,121.797796 20.25974,184.510066 36.65886,69.70942 43.45354,151.92243 43.29495,206.61493 10.70893,1.74153 21.53727,2.64596 32.38672,2.70508 C 371.34871,464.8571 464.85721,371.3486 464.85742,256 464.85721,140.6514 371.34871,47.142898 256,47.142578 Z M 135.05859,86.601562 C 80.158954,125.59368 47.426627,188.66302 47.142578,256 47.520273,348.93254 109.25659,430.43646 198.61328,455.9707 177.96401,377.45964 152.43241,345.26041 141.65849,285.61042 130.88456,225.96043 134.86831,138.85968 135.05859,86.601562 Z"
        sodipodi:nodetypes="ccscccccccsc" />
     <path
