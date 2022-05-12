@@ -1,9 +1,11 @@
-﻿using Stylet;
+﻿using SetupWizard.GUI.Models;
+using Stylet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace SetupWizard.GUI.ViewModels
 {
@@ -13,8 +15,8 @@ namespace SetupWizard.GUI.ViewModels
 
         #region Bindings
 
-        private TimeOnly _time = TimeOnly.Parse("12:00PM");
-        public TimeOnly Time
+        private string _time = "12:00PM";
+        public string Time
         {
             get => _time;
             set
@@ -80,29 +82,36 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _sun, value);
         }
 
-        private KeyValuePair<uint, string> _channel;
-        public KeyValuePair<uint, string> Channel
+        private KeyValuePair<ulong, string> _channel;
+        public KeyValuePair<ulong, string> Channel
         {
             get => _channel;
             set => SetAndNotify(ref _channel, value);
         }
 
-        private KeyValuePair<uint, string> _role;
-        public KeyValuePair<uint, string> Role
+        private KeyValuePair<ulong, string> _role;
+        public KeyValuePair<ulong, string> Role
         {
             get => _role;
             set => SetAndNotify(ref _role, value);
         }
 
-        private KeyValuePair<uint, string> _user;
-        public KeyValuePair<uint, string> User
+        private KeyValuePair<ulong, string> _user;
+        public KeyValuePair<ulong, string> User
         {
             get => _user;
             set => SetAndNotify(ref _user, value);
         }
 
-        private string _sequence = "user(user_0, user_1);";
-        public string Sequence
+        private string _userName;
+        public string UserName
+        {
+            get => _userName;
+            set => SetAndNotify(ref _userName, value);
+        }
+
+        private string? _sequence;
+        public string? Sequence
         {
             get => _sequence;
             set => SetAndNotify(ref _sequence, value);
@@ -119,50 +128,25 @@ namespace SetupWizard.GUI.ViewModels
 
         #region Server Data
 
-        private BindableCollection<KeyValuePair<uint, string>> _channels = new()
-        {
-            { new(0001, "data-access") },
-            { new(0002, "system") },
-            { new(0003, "chat") },
-        };
-        public BindableCollection<KeyValuePair<uint, string>> Channels
+        private BindableCollection<KeyValuePair<ulong, string>> _channels = TaskModel.Channels;
+        public BindableCollection<KeyValuePair<ulong, string>> Channels
         {
             get => _channels;
             set => SetAndNotify(ref _channels, value);
         }
 
-        private BindableCollection<KeyValuePair<uint, string>> _roles = new();
-        public BindableCollection<KeyValuePair<uint, string>> Roles
+        private BindableCollection<KeyValuePair<ulong, string>> _roles = TaskModel.Roles;
+        public BindableCollection<KeyValuePair<ulong, string>> Roles
         {
             get => _roles;
             set => SetAndNotify(ref _roles, value);
         }
 
-        private BindableCollection<KeyValuePair<uint, string>> _users = new();
-        public BindableCollection<KeyValuePair<uint, string>> Users
+        private BindableCollection<KeyValuePair<ulong, string>> _users = TaskModel.Users;
+        public BindableCollection<KeyValuePair<ulong, string>> Users
         {
             get => _users;
             set => SetAndNotify(ref _users, value);
-        }
-
-        public void Sync()
-        {
-            Dictionary<string, Dictionary<uint, string>> serverMetaData = new();
-
-            // Fetch server data
-
-            Channels = new();
-            Roles = new();
-            Users = new();
-
-            foreach (var data in serverMetaData["channels"])
-                Channels.Add(new(data.Key, data.Value));
-
-            foreach (var data in serverMetaData["roles"])
-                Roles.Add(new(data.Key, data.Value));
-
-            foreach (var data in serverMetaData["users"])
-                Users.Add(new(data.Key, data.Value));
         }
 
         #endregion
@@ -177,6 +161,7 @@ namespace SetupWizard.GUI.ViewModels
         public TaskViewModel(int key)
         {
             Key = string.Format("0x{0:X}", key.ToString("X6"));
+            DateTime = DateTime.Parse(Time.ToString());
         }
 
         #endregion

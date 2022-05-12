@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SetupWizard.GUI.Views"
+             xmlns:helpers="clr-namespace:SetupWizard.GUI.ViewResources.Helpers"
+             xmlns:local="clr-namespace:SetupWizard.GUI.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
@@ -111,19 +112,25 @@
             <TextBlock Grid.Row="6"
                        VerticalAlignment="Bottom"
                        FontSize="12"
-                       Text="User" />
+                       Text="User (ID/Username)" />
 
             <ComboBox Grid.Row="7"
                       Height="36"
                       ItemsSource="{Binding Users}"
                       ScrollViewer.CanContentScroll="False"
-                      SelectedItem="{Binding User}">
+                      SelectedItem="{Binding User}"
+                      Visibility="Collapsed">
                 <ComboBox.ItemTemplate>
                     <ItemContainerTemplate>
                         <TextBlock Text="{Binding Path=Value}" />
                     </ItemContainerTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+
+            <TextBox Grid.Row="7"
+                     Height="36"
+                     ScrollViewer.CanContentScroll="False"
+                     Text="{Binding UserName}" />
 
             <TextBlock Grid.Row="8"
                        VerticalAlignment="Bottom"
@@ -147,11 +154,15 @@
                        FontSize="12"
                        Text="Message" />
 
-            <avalonEdit:TextEditor Grid.Row="11"
-                                   MinHeight="150"
-                                   Margin="0,7"
-                                   Padding="9"
-                                   Style="{DynamicResource FloatingTextEditor}" />
+            <TextBox Grid.Row="11"
+                     Height="Auto"
+                     MinHeight="150"
+                     Margin="0,7"
+                     Padding="0,6"
+                     VerticalContentAlignment="Top"
+                     AcceptsReturn="True"
+                     Text="{Binding Message}"
+                     VerticalScrollBarVisibility="Visible" />
 
         </Grid>
     </ScrollViewer>
