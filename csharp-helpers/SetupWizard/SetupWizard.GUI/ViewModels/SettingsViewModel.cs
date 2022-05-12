@@ -1,4 +1,5 @@
-﻿using SetupWizard.GUI.ViewResources;
+﻿using SetupWizard.GUI.Models;
+using SetupWizard.GUI.ViewResources;
 using SetupWizard.GUI.ViewResources.Helpers;
 using Stylet;
 using System;
@@ -13,12 +14,17 @@ namespace SetupWizard.GUI.ViewModels
 {
     public class SettingsViewModel : Screen
     {
-        public void Save()
+        public async void Save()
         {
+            // Sync remote settings
+            Syncing syncing = new();
+            await syncing.Send(this);
 
+            // Write local settings
+            await File.WriteAllTextAsync($"{Environment.GetEnvironmentVariable("LOCALAPPDATA")}\\TaskTracker.server", ServerID.ToString());
         }
 
-        private ShellViewModel ShellViewModel { get; set; }
+        public ShellViewModel ShellViewModel { get; set; }
 
         private ulong _serverId = 0;
         public ulong ServerID
@@ -27,11 +33,11 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _serverId, value);
         }
 
-        private bool _autoSync = true;
-        public bool AutoSync
+        private string _timezone = "";
+        public string Timezone
         {
-            get => _autoSync;
-            set => SetAndNotify(ref _autoSync, value);
+            get => _timezone;
+            set => SetAndNotify(ref _timezone, value);
         }
 
         private LockIcon _lockIcon = new();
