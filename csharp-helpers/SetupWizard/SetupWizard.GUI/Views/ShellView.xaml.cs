@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CS8604
 #pragma warning disable CS8605
 
+using SetupWizard.GUI.Models;
 using SetupWizard.GUI.ViewModels;
 using SetupWizard.GUI.ViewResources.Helpers;
 using Stylet;
@@ -155,6 +156,9 @@ namespace SetupWizard.GUI.Views
                 HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
 
                 gridParent.MouseDown += (s, e) => gridParent.Focus();
+
+                // Syncronize server
+                ((ShellViewModel)DataContext).Sync("Start");
             };
 
             // Load theme file

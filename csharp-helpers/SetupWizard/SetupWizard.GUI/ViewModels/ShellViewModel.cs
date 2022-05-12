@@ -1,7 +1,7 @@
-﻿using SetupWizard.GUI.ViewResources.Helpers;
+﻿using SetupWizard.GUI.Models;
+using SetupWizard.GUI.ViewResources.Helpers;
 using Stylet;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -176,7 +176,7 @@ namespace SetupWizard.GUI.ViewModels
             {
                 ItemDataVis = Visibility.Visible;
                 ItemEditVis = Visibility.Collapsed;
-                TaskViewModel.Time = TimeOnly.Parse(TaskViewModel.DateTime.ToString("h:mm tt"));
+                TaskViewModel.Time = TaskViewModel.DateTime.ToString("h:mm tt");
 
                 for (int i = 0; i < Tasks.Count; i++)
                 {
@@ -192,10 +192,9 @@ namespace SetupWizard.GUI.ViewModels
                 SelectedTask = TaskViewModel;
                 TaskViewModel = null;
             }
-            else
-            {
-                // Sync
-            }
+
+            if (SettingsViewModel != null)
+                SettingsViewModel.Save();
         }
 
         public void Cancel()
@@ -215,6 +214,45 @@ namespace SetupWizard.GUI.ViewModels
             ItemEditVis = Visibility.Collapsed;
             ItemDataVis = Visibility.Visible;
             return;
+        }
+
+        public async void Sync(string command = "Fetch")
+        {
+            if (command == "WarnUser")
+            {
+                if (WindowManager == null)
+                {
+                    // This should never be reached
+                    MessageBox.Show("Could not load WindowManager from ShellViewModel.\nTry restarting the application.", "Error");
+                    return;
+                }
+
+                if (!WindowManager.Show($"Syncing will delete any changes you have made locally.\nThis **cannot** be undone!\n\nProceed anyway?", "Warning", true))
+                    return;
+            }
+
+            else if (command == "Start")
+            {
+                // do something
+            }
+
+            Server server;
+            Syncing syncing = new();
+
+            server = await syncing.Fetch(SettingsViewModel.ServerID);
+            ShellViewModel mirror = server.GetShellBase();
+
+            Tasks = mirror.Tasks;
+            Vars = mirror.Vars;
+
+            if (TaskViewModel != null)
+            {
+                TaskViewModel.Channels = TaskModel.Channels;
+                TaskViewModel.Roles = TaskModel.Roles;
+                TaskViewModel.Users = TaskModel.Users;
+            }
+
+            SettingsViewModel.Timezone = server.Timezone;
         }
 
         #endregion
@@ -340,7 +378,7 @@ namespace SetupWizard.GUI.ViewModels
         #region DataContext
 
         // Views
-        public SettingsViewModel? SettingsViewModel { get; set; } = null;
+        public SettingsViewModel SettingsViewModel { get; set; }
 
         private HandledExceptionViewModel? _handledExceptionViewModel = null;
         public HandledExceptionViewModel? HandledExceptionViewModel
@@ -393,10 +431,11 @@ namespace SetupWizard.GUI.ViewModels
         {
             WindowManager = windowManager;
             SettingsViewModel = new(this);
-            Tasks = RanDataAccess.Get();
 
-            Vars.Add(new("user_m", "Marcus"));
-            Vars.Add(new("user_a", "Alex"));
+            if (File.Exists($"{Environment.GetEnvironmentVariable("LOCALAPPDATA")}\\TaskTracker.server"))
+                SettingsViewModel.ServerID = ulong.Parse(File.ReadAllText($"{Environment.GetEnvironmentVariable("LOCALAPPDATA")}\\TaskTracker.server"));
+
+            Debug.WriteLine("Initialized Shell");
         }
 
         ///

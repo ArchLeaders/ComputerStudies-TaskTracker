@@ -260,6 +260,21 @@
                         Padding="0"
                         HorizontalAlignment="Right"
                         Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Command="{s:Action Sync}"
+                        CommandParameter="WarnUser"
+                        Focusable="False"
+                        Foreground="{DynamicResource SecondaryHueLightBrush}"
+                        ToolTip="Update the local server (this machine) to the remote server (the last saved changes).">
+                    <wpf:PackIcon Width="26"
+                                  Height="26"
+                                  Kind="Sync" />
+                </Button>
+                <Button Width="32"
+                        Height="32"
+                        Margin="5,3,3,3"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
                         Command="{s:Action Add}"
                         Focusable="False"
                         Foreground="{DynamicResource SecondaryHueLightBrush}"
