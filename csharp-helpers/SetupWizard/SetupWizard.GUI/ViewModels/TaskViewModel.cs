@@ -11,7 +11,7 @@ namespace SetupWizard.GUI.ViewModels
 {
     public class TaskViewModel : Screen
     {
-        public string Key { get; set; } = string.Format("0x{0:X}", 0.ToString("X6"));
+        public string Key { get; set; } = "";
 
         #region Bindings
 
@@ -103,7 +103,7 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _user, value);
         }
 
-        private string _userName;
+        private string _userName = "";
         public string UserName
         {
             get => _userName;
