@@ -57,6 +57,9 @@ namespace SetupWizard.GUI.Models
 
                 foreach (var sqVar in sqVars)
                 {
+                    if (sqVar == "")
+                        continue;
+
                     string[] sqFunc = sqVar.Replace(")", "").Split('(');
                     string[] sqArgs = sqFunc[1].Split(',');
 
