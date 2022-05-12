@@ -35,7 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="ViewResources\Fonts\" />
   </ItemGroup>
 
@@ -54,6 +53,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Acheron.Web">
+      <HintPath>..\..\..\..\..\..\Visual Studio\Libraries\Acheron\Acheron.Web\bin\Release\net6.0\Acheron.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System.Operations">
       <HintPath>..\..\..\..\..\..\Visual Studio\Libraries\Acheron\System.Operations\bin\Debug\net6.0\System.Operations.dll</HintPath>
     </Reference>
