@@ -140,6 +140,18 @@ namespace SetupWizard.GUI.ViewModels
         {
             if (VarViewModel != null)
             {
+                if (VarViewModel.Key == "" ||
+                    VarViewModel.Value == "")
+                {
+
+                    if (WindowManager != null)
+                        WindowManager.Show("Could not save changes. Make sure that the **Key** and **Value** are both set.", "Notice");
+                    else
+                        MessageBox.Show("Could not save changes. Make sure that the Key and Value are both set.", "Notice");
+
+                    return;
+                }
+
                 for (int i = 0; i < Vars.Count; i++)
                 {
                     if (Vars[i].Key == VarViewModel.Key)
@@ -174,6 +186,19 @@ namespace SetupWizard.GUI.ViewModels
             }
             else if (TaskViewModel != null)
             {
+                if (TaskViewModel.Time == "" ||
+                    TaskViewModel.Message == "" ||
+                    TaskViewModel.Channel.Key == 0 ||
+                    TaskViewModel.Key == "") {
+
+                    if (WindowManager != null)
+                        WindowManager.Show("Could not save changes. Make sure that **Time**, **Message**, and **Channel** are all set to valid values.", "Notice", width: 300);
+                    else
+                        MessageBox.Show("Could not save changes. Make sure that Time, Message, and Channel are all set to valid values.", "Notice");
+
+                    return;
+                }
+
                 ItemDataVis = Visibility.Visible;
                 ItemEditVis = Visibility.Collapsed;
                 TaskViewModel.Time = TaskViewModel.DateTime.ToString("h:mm tt");
@@ -227,7 +252,7 @@ namespace SetupWizard.GUI.ViewModels
                     return;
                 }
 
-                if (!WindowManager.Show($"Syncing will delete any changes you have made locally.\nThis **cannot** be undone!\n\nProceed anyway?", "Warning", true))
+                if (!WindowManager.Show($"Syncing will delete any changes you have made locally.\nThis **cannot** be undone!\n\nProceed anyway?", "Warning", true, width: 300))
                     return;
             }
 
