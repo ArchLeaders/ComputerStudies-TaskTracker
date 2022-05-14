@@ -27,8 +27,8 @@
     --secondary-dark: #244AC2;
 
     --accent-light-blue: #b9d1db;
-    --primary-light: #818181;
-    --primary-mid: #3f3f3f;
+    --primary-light: #555555;
+    --primary-mid: #2f2f2f;
     --primary-dark: #1f1f1f;
 
     --error: #e02141;
@@ -46,7 +46,7 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.4;
     color: var(--body);
     background: var(--paper);
@@ -99,7 +99,7 @@ a:hover {
 }
 
 .showcase .header .title {
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     text-align: center;
 }
 
@@ -114,7 +114,7 @@ a:hover {
     padding-right: 15px;
 }
 
-.links>li>div {
+.image-link>div {
     background: var(--body);
     margin: auto;
     height: 2px;
@@ -123,7 +123,7 @@ a:hover {
     transition: width 0.2s ease;
 }
 
-.links>li>a:hover+div {
+.image-link>a:hover+div {
     width: 100%;
 }
 
@@ -166,11 +166,12 @@ a:hover {
     color: var(--body);
     padding: 10px 15px;
     text-decoration: none;
-    transition: color 0.3s ease-out;
+    transition: background-color 0.3s ease-out;
 }
 
 .btn:hover {
-    color: var(--secondary-light);
+    color: var(--body);
+    background-color: var(--primary-mid);
 }
 
 @media (max-width: 1400px) {

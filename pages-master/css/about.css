@@ -8,3 +8,23 @@
     height: 100%;
     z-index: -1;
 }
+
+.content {
+    margin: 5vh 5vw;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--primary-light);
+    margin: 10px 0;
+}
+
+h2 {
+    font-weight: lighter;
+}
+
+h3 {
+    font-size: 20px;
+    margin: 15px 0;
+}
