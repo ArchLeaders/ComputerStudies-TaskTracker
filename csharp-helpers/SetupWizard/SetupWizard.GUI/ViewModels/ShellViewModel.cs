@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace SetupWizard.GUI.ViewModels
@@ -35,6 +36,8 @@ namespace SetupWizard.GUI.ViewModels
         {
             if (IsTasks && SelectedTask != null)
             {
+                Status = "Task Edit Mode | Ready";
+
                 // This is very stupid; fix it!!
                 TaskViewModel = new()
                 {
@@ -60,7 +63,9 @@ namespace SetupWizard.GUI.ViewModels
             }
             else if (IsVars && SelectedVar != null)
             {
-                // So is this, but it's 6 billian parameters
+                Status = "Var Edit Mode | Ready";
+
+                // So is this, but it's not 6 billian parameters
                 VarViewModel = new()
                 {
                     Key = SelectedVar.Key,
@@ -107,11 +112,15 @@ namespace SetupWizard.GUI.ViewModels
         {
             if (IsTasks)
             {
+                Status = "Task Edit Mode | Ready";
+
                 TaskViewModel = new(Tasks.Count);
                 TempTask = new(Tasks.Count);
             }
             else if (IsVars)
             {
+                Status = "Var Edit Mode | Ready";
+
                 VarViewModel = new();
                 TempVar = new();
             }
@@ -140,8 +149,9 @@ namespace SetupWizard.GUI.ViewModels
         {
             if (VarViewModel != null)
             {
-                if (VarViewModel.Key == "" ||
-                    VarViewModel.Value == "")
+                Status = "Saving...";
+
+                if (VarViewModel.Key == "" || VarViewModel.Value == "")
                 {
 
                     if (WindowManager != null)
@@ -168,29 +178,23 @@ namespace SetupWizard.GUI.ViewModels
                                 return;
 
                         Vars[i] = VarViewModel;
-                        Cleanup();
+                        VarViewModel = null;
+                        SelectedVar = VarViewModel;
+                        await Cleanup();
                         return;
                     }
                 }
 
                 Vars.Add(VarViewModel);
-                Cleanup();
-
-                void Cleanup()
-                {
-                    VarViewModel = null;
-                    ItemEditVis = Visibility.Collapsed;
-                    ItemDataVis = Visibility.Visible;
-                    SelectedVar = VarViewModel;
-                }
+                VarViewModel = null;
+                SelectedVar = VarViewModel;
             }
             else if (TaskViewModel != null)
             {
-                if (TaskViewModel.Time == "" ||
-                    TaskViewModel.Message == "" ||
-                    TaskViewModel.Channel.Key == 0 ||
-                    TaskViewModel.Key == "") {
+                Status = "Saving...";
 
+                if (TaskViewModel.Time == "" || TaskViewModel.Message == "" || TaskViewModel.Channel.Key == 0 || TaskViewModel.Key == "")
+                {
                     if (WindowManager != null)
                         WindowManager.Show("Could not save changes. Make sure that **Time**, **Message**, and **Channel** are all set to valid values.", "Notice", width: 300);
                     else
@@ -199,8 +203,6 @@ namespace SetupWizard.GUI.ViewModels
                     return;
                 }
 
-                ItemDataVis = Visibility.Visible;
-                ItemEditVis = Visibility.Collapsed;
                 TaskViewModel.Time = TaskViewModel.DateTime.ToString("h:mm tt");
 
                 for (int i = 0; i < Tasks.Count; i++)
@@ -209,6 +211,7 @@ namespace SetupWizard.GUI.ViewModels
                     {
                         Tasks[i] = TaskViewModel;
                         TaskViewModel = null;
+                        await Cleanup();
                         return;
                     }
                 }
@@ -218,12 +221,24 @@ namespace SetupWizard.GUI.ViewModels
                 TaskViewModel = null;
             }
 
-            // Push settings
-            Syncing syncing = new();
-            await syncing.Send(SettingsViewModel);
+            await Cleanup();
+            async Task Cleanup()
+            {
+                ItemEditVis = Visibility.Collapsed;
+                ItemDataVis = Visibility.Visible;
 
-            // Write local settings
-            await File.WriteAllTextAsync($"{Environment.GetEnvironmentVariable("LOCALAPPDATA")}\\TaskTracker.server", SettingsViewModel.ServerID.ToString());
+                Status = "Pushing Changes...";
+
+                // Push settings
+                Syncing syncing = new();
+                await syncing.Send(SettingsViewModel);
+
+                // Write local settings
+                await File.WriteAllTextAsync($"{Environment.GetEnvironmentVariable("LOCALAPPDATA")}\\TaskTracker.server", SettingsViewModel.ServerID.ToString());
+
+                Status = "Ready";
+            }
+
         }
 
         public void Cancel()
@@ -242,11 +257,13 @@ namespace SetupWizard.GUI.ViewModels
             VarViewModel = null;
             ItemEditVis = Visibility.Collapsed;
             ItemDataVis = Visibility.Visible;
-            return;
+
+            Status = "Ready";
         }
 
         public async void Sync(string command = "Fetch")
         {
+
             if (command == "WarnUser")
             {
                 if (WindowManager == null)
@@ -275,6 +292,8 @@ namespace SetupWizard.GUI.ViewModels
                     else return;
                 }
             }
+
+            Status = "Synchronizing...";
 
             Server server;
             Syncing syncing = new();
@@ -317,6 +336,8 @@ namespace SetupWizard.GUI.ViewModels
                         break;
                     }
                 }
+
+            Status = "Ready";
         }
 
         #endregion
@@ -398,6 +419,13 @@ namespace SetupWizard.GUI.ViewModels
         /// Bindings
         ///
         #region Bindings
+
+        private string _status = "Ready";
+        public string Status
+        {
+            get => _status;
+            set => SetAndNotify(ref _status, value);
+        }
 
         private Visibility _handledExceptionViewVisibility = Visibility.Collapsed;
         public Visibility HandledExceptionViewVisibility

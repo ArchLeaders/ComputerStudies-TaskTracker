@@ -222,6 +222,13 @@
                     </wpf:PackIcon.RenderTransform>
                 </wpf:PackIcon>
             </Button>
+            <TextBlock Margin="0,0,50,0"
+                       Padding="4"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       FontSize="12"
+                       Text="{Binding Status}"
+                       Visibility="{Binding SettingsPanel}" />
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                 <Button x:Name="footerRequestHelp"
                         Width="32"
@@ -344,13 +351,6 @@
                                   Kind="Close" />
                 </Button>
             </StackPanel>
-            <TextBlock x:Name="footerBasicErrorReport"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontFamily="Consolas"
-                       FontSize="18"
-                       FontWeight="Bold"
-                       Text="" />
         </Grid>
 
     </Grid>
