@@ -118,19 +118,13 @@
                       Height="36"
                       ItemsSource="{Binding Users}"
                       ScrollViewer.CanContentScroll="False"
-                      SelectedItem="{Binding User}"
-                      Visibility="Collapsed">
+                      SelectedItem="{Binding User}">
                 <ComboBox.ItemTemplate>
                     <ItemContainerTemplate>
                         <TextBlock Text="{Binding Path=Value}" />
                     </ItemContainerTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-
-            <TextBox Grid.Row="7"
-                     Height="36"
-                     ScrollViewer.CanContentScroll="False"
-                     Text="{Binding UserName}" />
 
             <TextBlock Grid.Row="8"
                        VerticalAlignment="Bottom"
