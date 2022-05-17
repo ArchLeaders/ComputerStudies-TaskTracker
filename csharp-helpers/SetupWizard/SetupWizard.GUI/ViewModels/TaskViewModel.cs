@@ -103,13 +103,6 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _user, value);
         }
 
-        private string _userName = "";
-        public string UserName
-        {
-            get => _userName;
-            set => SetAndNotify(ref _userName, value);
-        }
-
         private string? _sequence;
         public string? Sequence
         {
