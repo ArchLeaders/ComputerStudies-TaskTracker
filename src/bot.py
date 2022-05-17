@@ -21,7 +21,7 @@ def is_local_host() -> bool:
         return True
 
     except:
-        {}
+        return False
 
 
 #
@@ -116,7 +116,11 @@ async def on_ready():
     # log online status to the console
     print(f"{BOT.user} has started.")
 
-    load_cogs()
+    try:
+        load_cogs()
+    except:
+        print("Cogs failed to load.")
+        pass
 
     # get running server id
     # SERVER_ID should be a get function not a constant
