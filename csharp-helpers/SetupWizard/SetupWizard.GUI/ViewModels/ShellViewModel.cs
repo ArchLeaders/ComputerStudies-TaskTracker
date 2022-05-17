@@ -136,7 +136,7 @@ namespace SetupWizard.GUI.ViewModels
             }
         }
 
-        public void Save()
+        public async void Save()
         {
             if (VarViewModel != null)
             {
@@ -218,8 +218,12 @@ namespace SetupWizard.GUI.ViewModels
                 TaskViewModel = null;
             }
 
-            if (SettingsViewModel != null)
-                SettingsViewModel.Save();
+            // Push settings
+            Syncing syncing = new();
+            await syncing.Send(SettingsViewModel);
+
+            // Write local settings
+            await File.WriteAllTextAsync($"{Environment.GetEnvironmentVariable("LOCALAPPDATA")}\\TaskTracker.server", SettingsViewModel.ServerID.ToString());
         }
 
         public void Cancel()
@@ -258,7 +262,18 @@ namespace SetupWizard.GUI.ViewModels
 
             else if (command == "Start")
             {
-                // do something
+                if (SettingsViewModel.ServerID == 0)
+                {
+                    string serverTokenFile = $"{Environment.GetEnvironmentVariable("USERPROFILE")}\\Downloads\\server.token";
+
+                    if (File.Exists(serverTokenFile))
+                    {
+                        SettingsViewModel.ServerID = ulong.Parse(File.ReadAllText(serverTokenFile));
+                        File.Delete(serverTokenFile);
+                    }
+
+                    else return;
+                }
             }
 
             Server server;
@@ -277,7 +292,31 @@ namespace SetupWizard.GUI.ViewModels
                 TaskViewModel.Users = TaskModel.Users;
             }
 
-            SettingsViewModel.Timezone = server.Timezone;
+            string pos = "";
+
+            if (server.Timezone.Contains("-"))
+            {
+                server.Timezone = server.Timezone.Replace("-", "+");
+                pos = "+";
+            }
+
+            else if (server.Timezone.Contains("+"))
+                server.Timezone = server.Timezone.Replace("+", "-");
+
+            if (server.Timezone != "")
+                foreach (var tz in TimeZoneInfo.GetSystemTimeZones())
+                {
+                    int gmtOffset = tz.BaseUtcOffset.Hours;
+
+                    if (tz.IsDaylightSavingTime(DateTime.Now))
+                        gmtOffset++;
+
+                    if (server.Timezone == $"Etc/GMT{pos}{gmtOffset}")
+                    {
+                        SettingsViewModel.Timezone = tz.StandardName;
+                        break;
+                    }
+                }
         }
 
         #endregion

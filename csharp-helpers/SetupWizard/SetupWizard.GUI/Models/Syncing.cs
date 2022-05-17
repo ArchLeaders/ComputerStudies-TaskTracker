@@ -18,7 +18,8 @@ namespace SetupWizard.GUI.Models
 {
     public class Syncing
     {
-        private DiscordSocketClient Client { get; set; } = new();
+        private DiscordSocketClient Client { get; set; } = new(new DiscordSocketConfig() { GatewayIntents = GatewayIntents.All });
+
         private bool Working { get; set; } = true;
         private string TempFile { get; set; } = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Temp\\server.io";
 
@@ -47,6 +48,7 @@ namespace SetupWizard.GUI.Models
 
                 TaskModel.Channels.Clear();
                 TaskModel.Roles.Clear();
+                TaskModel.Users.Clear();
 
                 foreach (ITextChannel serverChannel in await guild.GetTextChannelsAsync())
                 {
@@ -69,17 +71,15 @@ namespace SetupWizard.GUI.Models
 
                     TaskModel.Roles.Add(new(role.Id, role.Name));
                 }
+ 
+                foreach (IUser user in await guild.GetUsersAsync())
+                {
 
-                // The bot does not have access to the users of a guild, so it will be temporarily commented out
-                // 
-                // foreach (IUser user in await guild.GetUsersAsync())
-                // {
-                // 
-                //     if (user.Username == "TaskTracker#3825")
-                //         continue;
-                // 
-                //     TaskModel.Users.Add(new(user.Id, user.Username));
-                // }
+                    if (user.Username == "TaskTracker#3825")
+                        continue;
+
+                    TaskModel.Users.Add(new(user.Id, user.Username));
+                }
 
                 // Complete task
                 Working = false;
@@ -97,7 +97,25 @@ namespace SetupWizard.GUI.Models
             foreach (var _var in settings.ShellViewModel.Vars)
                 server.Vars.Add(_var.Key, _var.Value);
 
-            server.Timezone = settings.Timezone;
+            foreach (var tz in TimeZoneInfo.GetSystemTimeZones())
+            {
+                int gmtOffset = tz.BaseUtcOffset.Hours;
+
+                if (tz.IsDaylightSavingTime(DateTime.Now))
+                    gmtOffset++;
+
+                if (settings.Timezone == tz.StandardName)
+                {
+                    server.Timezone = $"Etc/GMT^{gmtOffset}";
+                    break;
+                }
+            }
+
+            if (server.Timezone.Contains("-"))
+                server.Timezone = server.Timezone.Replace("^-", "+");
+
+            else
+                server.Timezone = server.Timezone.Replace("^", "");
 
             await Send(settings.ServerID, server);
         }

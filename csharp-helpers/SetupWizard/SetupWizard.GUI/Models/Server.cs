@@ -34,6 +34,18 @@ namespace SetupWizard.GUI.Models
                 TaskModel task = Tasks[i];
                 TaskViewModel viewTask = new(i);
 
+                foreach (var user in TaskModel.Users)
+                    if (user.Key == task.User)
+                        viewTask.User = user;
+
+                foreach (var role in TaskModel.Roles)
+                    if (role.Key == task.Role)
+                        viewTask.Role = role;
+
+                foreach (var user in TaskModel.Channels)
+                    if (user.Key == task.Channel)
+                        viewTask.Channel = user;
+
                 viewTask.Time = task.Time;
                 viewTask.DateTime = DateTime.Parse(task.Time);
                 viewTask.Message = task.Message
