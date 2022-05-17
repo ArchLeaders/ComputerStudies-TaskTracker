@@ -30,24 +30,5 @@
                      Text="{Binding Timezone, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-        <Grid Margin="15,0,0,0">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.3*" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <Button Margin="0,15"
-                    Padding="0"
-                    VerticalAlignment="Bottom"
-                    Background="{DynamicResource MaterialDesignPaper}"
-                    Click="{s:Action Save}"
-                    Content="Save"
-                    Focusable="False"
-                    FontSize="18"
-                    FontWeight="Bold"
-                    IsTabStop="False" />
-        </Grid>
-
     </Grid>
 </UserControl>

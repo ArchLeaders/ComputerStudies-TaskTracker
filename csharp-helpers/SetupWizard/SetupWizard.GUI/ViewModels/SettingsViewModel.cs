@@ -14,16 +14,6 @@ namespace SetupWizard.GUI.ViewModels
 {
     public class SettingsViewModel : Screen
     {
-        public async void Save()
-        {
-            // Sync remote settings
-            Syncing syncing = new();
-            await syncing.Send(this);
-
-            // Write local settings
-            await File.WriteAllTextAsync($"{Environment.GetEnvironmentVariable("LOCALAPPDATA")}\\TaskTracker.server", ServerID.ToString());
-        }
-
         public ShellViewModel ShellViewModel { get; set; }
 
         private ulong _serverId = 0;
@@ -33,7 +23,7 @@ namespace SetupWizard.GUI.ViewModels
             set => SetAndNotify(ref _serverId, value);
         }
 
-        private string _timezone = "";
+        private string _timezone = TimeZoneInfo.Local.StandardName;
         public string Timezone
         {
             get => _timezone;
