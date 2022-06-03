@@ -85,20 +85,12 @@ def load_cogs():
         try:
             if file.is_file() and "_view.py" not in file.name:
                 # format name
-                if is_local_host():
-                    name = (
-                        file.as_posix()
-                        .replace(".py", "")
-                        .replace("/", ".")
-                        .replace("src.cogs.", "")
-                    )
-                else:
-                    name = (
-                        file.as_posix()
-                        .replace(".py", "")
-                        .replace("/app/src/cogs/", "")
-                        .replace("/", ".")
-                    )
+                name = (
+                    file.as_posix()
+                    .replace(".py", "")
+                    .replace("/", ".")
+                    .replace("src.cogs.", "")
+                )
 
                 # load cog
                 BOT.load_extension(f"cogs.{name}")
