@@ -3,15 +3,12 @@ using Discord;
 using Discord.WebSocket;
 using SetupWizard.GUI.ViewModels;
 using SetupWizard.GUI.ViewResources.Data;
-using Stylet;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SetupWizard.GUI.Models
@@ -21,7 +18,7 @@ namespace SetupWizard.GUI.Models
         private DiscordSocketClient Client { get; set; } = new(new DiscordSocketConfig() { GatewayIntents = GatewayIntents.All });
 
         private bool Working { get; set; } = true;
-        private string TempFile { get; set; } = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Temp\\server.io";
+        private string TempFile { get; set; } = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Temp\\server.io.json";
 
         public async Task<Server> Fetch(ulong settingsChannelId)
         {
