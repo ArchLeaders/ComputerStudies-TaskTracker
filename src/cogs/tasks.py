@@ -63,7 +63,7 @@ class Tasks(commands.Cog):
 
             # get the task channel and message
             update_setting = True
-            channel = BOT.get_channel(task["Channel"])
+            channel = BOT.get_channel(int(task["Channel"]))
 
             # set message and replace basic vars
             message: str = (
@@ -72,11 +72,11 @@ class Tasks(commands.Cog):
                 .replace("@user", f'<@{task["User"]}>')
                 .replace(
                     "$time_now",
-                    f'{self.get_time(settings["timezone"], "%I:%M%p")}',
+                    f'{get_time(settings["timezone"], "%I:%M%p")}',
                 )
                 .replace(
                     "$date_now",
-                    f'{self.get_time(settings["timezone"], "%I:%M%p")}',
+                    f'{get_time(settings["timezone"], "%I:%M%p")}',
                 )
             )
 
