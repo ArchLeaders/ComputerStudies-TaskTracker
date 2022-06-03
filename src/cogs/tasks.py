@@ -106,7 +106,7 @@ class Tasks(commands.Cog):
 
         # update the server settings
         if update_setting == True:
-            set_settings_data(id, settings)
+            await set_settings_data(id, settings)
 
     @commands.command()
     async def register(self, ctx: commands.Context):
