@@ -12,6 +12,7 @@ namespace SetupWizard.GUI.ViewModels
     public class TaskViewModel : Screen
     {
         public string Key { get; set; } = "";
+        public Dictionary<string, int>? Session { get; set; }
 
         #region Bindings
 

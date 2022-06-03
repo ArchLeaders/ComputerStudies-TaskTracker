@@ -53,6 +53,7 @@ namespace SetupWizard.GUI.ViewModels
                     Role = SelectedTask.Role,
                     User = SelectedTask.User,
                     Sequence = SelectedTask.Sequence,
+                    Session = SelectedTask.Session,
                     Message = SelectedTask.Message,
                     Channels = SelectedTask.Channels,
                     Roles = SelectedTask.Roles,
