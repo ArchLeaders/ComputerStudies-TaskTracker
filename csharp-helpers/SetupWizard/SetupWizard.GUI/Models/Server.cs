@@ -48,10 +48,8 @@ namespace SetupWizard.GUI.Models
 
                 viewTask.Time = task.Time;
                 viewTask.DateTime = DateTime.Parse(task.Time);
-                viewTask.Message = task.Message
-                    .Replace("\\\"", "\"")
-                    .Replace("\\r", "\r")
-                    .Replace("\\n", "\n");
+                viewTask.Message = task.Message;
+                viewTask.Session = task.Session;
 
                 viewTask.Mon = task.Days["Mon"];
                 viewTask.Tue = task.Days["Tue"];

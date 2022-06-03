@@ -11,6 +11,7 @@ namespace SetupWizard.GUI.Models
     public class TaskModel
     {
         public Dictionary<string, bool> Days { get; set; } = new();
+        public Dictionary<string, int> Session { get; set; } = new();
         public Dictionary<string, List<string>> Sequence { get; set; } = new();
 
         public string Time { get; set; }
@@ -33,10 +34,7 @@ namespace SetupWizard.GUI.Models
 
         public TaskModel(TaskViewModel task)
         {
-            Message = task.Message
-                .Replace("\"", "\\\"")
-                .Replace("\r", "\\r")
-                .Replace("\n", "\\n");
+            Message = task.Message;
 
             Time = task.Time;
             Channel = task.Channel.Key;
@@ -51,12 +49,10 @@ namespace SetupWizard.GUI.Models
             Days.Add(nameof(task.Sat), task.Sat);
             Days.Add(nameof(task.Sun), task.Sun);
 
-            if (task.Sequence != null && task.Sequence != "")
-            {
+            if (task.Sequence != null && task.Sequence != "") {
                 string[] sqVars = task.Sequence.Replace(" ", "").Split(';');
 
-                foreach (var sqVar in sqVars)
-                {
+                foreach (var sqVar in sqVars) {
                     if (sqVar == "")
                         continue;
 
@@ -64,6 +60,19 @@ namespace SetupWizard.GUI.Models
                     string[] sqArgs = sqFunc[1].Split(',');
 
                     Sequence.Add(sqFunc[0], sqArgs.ToList());
+
+                    // Set the session variable
+
+                    if (task.Session != null) {
+
+                        if (task.Session.ContainsKey(sqFunc[0])) {
+                            Session[sqFunc[0]] = task.Session[sqFunc[0]];
+                        }
+                        else {
+                            Session.Add(sqFunc[0], 0);
+                        }
+
+                    }
                 }
             }
         }
