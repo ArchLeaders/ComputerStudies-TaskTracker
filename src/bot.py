@@ -113,11 +113,6 @@ async def on_ready():
     print(f"{BOT.user} has started.")
     load_cogs()
 
-    # get running server id
-    # SERVER_ID should be a get function not a constant
-    #
-    # SERVER_ID = ctx.guild()
-
 
 # run bot client
 BOT.run(os.environ["TOKEN"])
