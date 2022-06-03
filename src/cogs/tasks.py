@@ -106,7 +106,7 @@ class Tasks(commands.Cog):
 
         # update the server settings
         if update_setting == True:
-            await set_settings_data(id, settings)
+            await set_settings_data(BOT.get_channel(id).guild.id, settings)
 
     @commands.command()
     async def register(self, ctx: commands.Context):
