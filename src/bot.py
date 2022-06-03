@@ -82,28 +82,32 @@ def load_cogs():
     for file in Path(f"{SRC}/src/cogs").glob("**/*.py"):
         """Load cogs in the cog directory"""
 
-        if file.is_file() and "_view.py" not in file.name:
-            # format name
-            if is_local_host():
-                name = (
-                    file.as_posix()
-                    .replace(".py", "")
-                    .replace("/", ".")
-                    .replace("src.cogs.", "")
-                )
-            else:
-                name = (
-                    file.as_posix()
-                    .replace(".py", "")
-                    .replace("/app/src/cogs/", "")
-                    .replace("/", ".")
-                )
+        try:
+            if file.is_file() and "_view.py" not in file.name:
+                # format name
+                if is_local_host():
+                    name = (
+                        file.as_posix()
+                        .replace(".py", "")
+                        .replace("/", ".")
+                        .replace("src.cogs.", "")
+                    )
+                else:
+                    name = (
+                        file.as_posix()
+                        .replace(".py", "")
+                        .replace("/app/src/cogs/", "")
+                        .replace("/", ".")
+                    )
 
-            # load cog
-            BOT.load_extension(f"cogs.{name}")
+                # load cog
+                BOT.load_extension(f"cogs.{name}")
 
-            # log success
-            print(f"Loaded: cogs.{name}")
+                # log success
+                print(f"Loaded: cogs.{name}")
+        except Exception as ex:
+            print(f"Failed to load {file} as cog.\n{ex}")
+            pass
 
 
 @BOT.event
@@ -115,12 +119,7 @@ async def on_ready():
 
     # log online status to the console
     print(f"{BOT.user} has started.")
-
-    try:
-        load_cogs()
-    except:
-        print("Cogs failed to load.")
-        pass
+    load_cogs()
 
     # get running server id
     # SERVER_ID should be a get function not a constant
