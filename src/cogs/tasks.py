@@ -117,18 +117,13 @@ class Tasks(commands.Cog):
         # upload the default config file to the settings channel
         settings = await get_settings_channel(ctx.guild.id)
 
-        file = Path(f"{SRC}\\tmp.io")
-        file.write_text(json.dumps({"timezone": "", "vars": {}, "tasks": []}, indent=4))
-        await settings.send(file=File(fp=file, filename=f"server.io.json"))
-        file.unlink()
-
         # update server list
-        server_list = BOT.get_channel(CHANNEL_DB).history(limit=1).flatten()
-        server_list = (
-            {}
-            if not server_list[0]
-            else await json.loads(server_list[0].attachments[0].read())
-        )
+        server_list = await BOT.get_channel(CHANNEL_DB).history(limit=1).flatten()
+        if server_list[0]:
+            server_list_text = await server_list[0].attachments[0].read()
+            server_list = json.loads(server_list_text)
+        else:
+            server_list = {}
 
         server_list[settings.id] = 0
 
@@ -154,17 +149,20 @@ class Tasks(commands.Cog):
         )
         embed.add_field(
             name="Step One:",
-            value=f"Download the [SetupWizard.exe](https://github.com/ArchLeaders/ComputerStudies-TaskTracker/releases/latest) from GitHub and this [token file]({token_msg.attachments[0].url})"
-            + " to configure TaskTracker with your server.",
+            value=f"Download the [SetupWizard](https://github.com/ArchLeaders/ComputerStudies-TaskTracker/releases/latest) from GitHub and this [token file]({token_msg.attachments[0].url}).",
             inline=False,
         )
         embed.add_field(
             name="Step Two:",
-            value="Run the downloaded executable and start adding tasks.",
+            value="Run __SetupWizard.exe__, wait for the status message in the bottom right of the tool to display __ready__.",
+            inline=False,
+        )
+        embed.add_field(
+            name="Step Three:",
+            value="Use the `+` buttom in the lower toolbar to add your first task.",
             inline=False,
         )
         embed.set_thumbnail(url=HELP)
-        embed.set_footer(text=f"ID: {settings.id}")
 
         # delete the loading message
         try:
