@@ -90,13 +90,14 @@ class TaskEdit(commands.Cog):
         embed.set_image(url=get_image())
         embed.set_footer(text=f"Task number: {task_number} | Sequence name: {sequence}")
 
-        await ctx.channel.send(embed=embed, reference=ctx.message)
+        await ctx.channel.send(embed=embed, reference=ctx.message, ephemeral=True)
 
     @commands.command()
     async def replace(self, ctx: commands.Context):
         await ctx.channel.send(
             "I ain't ready yet. Give me a month or two :man_shrugging:",
             reference=ctx.message,
+            ephemeral=True,
         )
 
 
