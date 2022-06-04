@@ -62,6 +62,7 @@ class Info(commands.Cog):
                     colour=INVALID_COLOR,
                 ),
                 reference=ctx.message,
+                ephemeral=True,
             )
             return
 
@@ -76,6 +77,7 @@ class Info(commands.Cog):
                     colour=INVALID_COLOR,
                 ),
                 reference=ctx.message,
+                ephemeral=True,
             )
             return
         else:

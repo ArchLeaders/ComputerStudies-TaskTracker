@@ -24,6 +24,7 @@ class TaskEdit(commands.Cog):
                     colour=INVALID_COLOR,
                 ),
                 reference=ctx.message,
+                ephemeral=True,
             )
             return
 
@@ -37,6 +38,7 @@ class TaskEdit(commands.Cog):
                     colour=INVALID_COLOR,
                 ),
                 reference=ctx.message,
+                ephemeral=True,
             )
             return
 
@@ -51,6 +53,7 @@ class TaskEdit(commands.Cog):
                     colour=INVALID_COLOR,
                 ),
                 reference=ctx.message,
+                ephemeral=True,
             )
             return
 
@@ -63,6 +66,7 @@ class TaskEdit(commands.Cog):
                     colour=INVALID_COLOR,
                 ),
                 reference=ctx.message,
+                ephemeral=True,
             )
             return
 
