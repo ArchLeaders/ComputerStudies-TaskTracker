@@ -1,9 +1,9 @@
 # Task Tracker Testing Process
 
 To complete the test process, check that you have the requirments and proceed follow the instructions.<br>
-For each step, note the results in [this word document](./res/TaskTrackerTestingProcess.docx).
+For each step, note the results in [this word document]([./res/TaskTrackerTestingProcess.docx](https://github.com/ArchLeaders/TaskTracker/raw/master/docs/res/TaskTrackerTestingProcess.docx)).
 
-When documenting the results of each step, compare your results with the expected results noted in the provided [word document](./res/TaskTrackerTestingProcess.docx) to set the criteria.
+When documenting the results of each step, compare your results with the expected results noted in the provided [word document]([./res/TaskTrackerTestingProcess.docx](https://github.com/ArchLeaders/TaskTracker/raw/master/docs/res/TaskTrackerTestingProcess.docx)) to set the criteria.
 Add any addition information in the notes section.
 
 **Requirments<br>**
