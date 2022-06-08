@@ -1,6 +1,6 @@
 # Task Tracker Testing Process
 
-To complete the test process, check that you have the requirements and proceed to follow the instructions.<br>
+To complete the test process, check that you have the requirements and proceed to follow the instructions below.<br>
 For each step, note the results in [this word document](https://github.com/ArchLeaders/TaskTracker/raw/master/docs/res/TaskTrackerTestingProcess.docx).
 
 When documenting the results of each step, compare your results with the expected results noted in the provided [word document](https://github.com/ArchLeaders/TaskTracker/raw/master/docs/res/TaskTrackerTestingProcess.docx). Then assign a criteria for each step.
@@ -35,7 +35,7 @@ Add any additional information in the notes section.
 
 ### 2. Creating a Task
 
-- **Create** a new task and set the properties to anything.
+- **Create** a new task and set every property (exluding the `Sequence` and `Time`) to anything.
 
 - In that task, edit the **time** to be the next minute and save.
 
@@ -45,10 +45,10 @@ Add any additional information in the notes section.
 
 ### 3. Modify a Task in Discord
 
-- After the task executes, go back into the **Setup Wizard** and add a [sequence]() property to any existing task.
+- After the task executes, go back into the **Setup Wizard** and set the `Sequence` property of any existing task.
 
-- After **saving** the changes, type [`-tasks`]() in your Discord server to show a list of tasks on this server.
+- After **saving** the changes, type `-tasks` in your Discord server to show a list of tasks on this server.
 
-- Using that information, type [`-skip task_number sequence_name`](), `task_number` being the task you wish to edit, and `sequence_name` as the sequence name you are skipping.
+- Using that information, type `-skip task_number sequence_name`, `task_number` being the task you wish to edit, and `sequence_name` as the name of the sequence you are skipping.
 
 - Wait for the **command** to complete and document the results.
