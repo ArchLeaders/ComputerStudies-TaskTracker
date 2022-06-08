@@ -15,15 +15,15 @@ The tools and resources used in development.
 
 - GitHub (Code repository, workflows, and web hosting)
 - Heroku (Bot hosting)
-- Discord (Receiving server/servise)
+- Discord (Receiving server/service)
 
 ### Materials
 
-- Computer & periferals, etc
+- Computer & peripherals, etc
 
 ## Production steps
 
-Each step in production briefly explained.
+Each step in production is briefly explained in this section.
 
 ### Discord Bot Logic (Python)
 
