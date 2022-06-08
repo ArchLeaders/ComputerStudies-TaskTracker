@@ -62,16 +62,11 @@ namespace SetupWizard.GUI.Models
                     Sequence.Add(sqFunc[0], sqArgs.ToList());
 
                     // Set the session variable
-
-                    if (task.Session != null) {
-
-                        if (task.Session.ContainsKey(sqFunc[0])) {
-                            Session[sqFunc[0]] = task.Session[sqFunc[0]];
-                        }
-                        else {
-                            Session.Add(sqFunc[0], 0);
-                        }
-
+                    if (task.Session.ContainsKey(sqFunc[0])) {
+                        Session[sqFunc[0]] = task.Session[sqFunc[0]];
+                    }
+                    else {
+                        Session.Add(sqFunc[0], 0);
                     }
                 }
             }
