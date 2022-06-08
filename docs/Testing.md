@@ -1,10 +1,10 @@
 # Task Tracker Testing Process
 
-To complete the test process, check that you have the requirments and proceed follow the instructions.<br>
+To complete the test process, check that you have the requirements and proceed to follow the instructions.<br>
 For each step, note the results in [this word document]([./res/TaskTrackerTestingProcess.docx](https://github.com/ArchLeaders/TaskTracker/raw/master/docs/res/TaskTrackerTestingProcess.docx)).
 
-When documenting the results of each step, compare your results with the expected results noted in the provided [word document]([./res/TaskTrackerTestingProcess.docx](https://github.com/ArchLeaders/TaskTracker/raw/master/docs/res/TaskTrackerTestingProcess.docx)) to set the criteria.
-Add any addition information in the notes section.
+When documenting the results of each step, compare your results with the expected results noted in the provided [word document]([./res/TaskTrackerTestingProcess.docx](https://github.com/ArchLeaders/TaskTracker/raw/master/docs/res/TaskTrackerTestingProcess.docx)). Then assign a criteria for each step.
+Add any additional information in the notes section.
 
 **Requirments<br>**
 
@@ -15,7 +15,7 @@ Add any addition information in the notes section.
 
 | Perfect | Good | OK | Poor | Doesn't Work |
 | ------- | ---- | -- | ---- | ------------ |
-| The product works exactly as intended and expresses good usablity and productivity. | The product works as intended and expresses good usablity. | The product works close to what was originally intended but has room for improvment. | The product works but is unusable. | The product does not work at all. |
+| The product works exactly as intended and expresses good usability and productivity. | The product works as intended and expresses good usability. | The product works close to what was originally intended but has room for improvement. | The product works but is unusable. | The product does not work at all. |
 
 <br>
 
@@ -35,7 +35,7 @@ Add any addition information in the notes section.
 
 ### 2. Creating a Task
 
-- **Create** a new task and set the properties to anyting.
+- **Create** a new task and set the properties to anything.
 
 - In that task, edit the **time** to be the next minute and save.
 
@@ -47,7 +47,7 @@ Add any addition information in the notes section.
 
 - After the task executes, go back into the **Setup Wizard** and add a [sequence]() property to any existing task.
 
-- After **saving** the changes, type [`-tasks`]() in your Discord server to show a list of task in this server.
+- After **saving** the changes, type [`-tasks`]() in your Discord server to show a list of tasks on this server.
 
 - Using that information, type [`-skip task_number sequence_name`](), `task_number` being the task you wish to edit, and `sequence_name` as the sequence name you are skipping.
 
