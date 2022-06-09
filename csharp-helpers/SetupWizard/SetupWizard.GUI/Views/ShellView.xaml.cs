@@ -203,6 +203,8 @@ namespace SetupWizard.GUI.Views
                     Animation.DoubleAnim(footerShowSettingsIcon, nameof(footerShowSettingsIconRotate), RotateTransform.AngleProperty, 0, 200);
                     settings.Visibility = Visibility.Hidden;
 
+                    ((ShellViewModel)DataContext).IsSettingsOpen = false;
+
                     if (((ShellViewModel)DataContext).Status == "Ready")
                         ((ShellViewModel)DataContext).ItemDataVis = Visibility.Visible;
                     else
@@ -210,6 +212,8 @@ namespace SetupWizard.GUI.Views
                 }
                 else if (settings.Visibility == Visibility.Hidden)
                 {
+                    ((ShellViewModel)DataContext).IsSettingsOpen = true;
+
                     Animation.DoubleAnim(footerShowSettingsIcon, nameof(footerShowSettingsIconRotate), RotateTransform.AngleProperty, -45, 200);
                     settings.Visibility = Visibility.Visible;
                     ((ShellViewModel)DataContext).ItemDataVis = Visibility.Collapsed;
