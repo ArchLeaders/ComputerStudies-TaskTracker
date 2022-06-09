@@ -53,7 +53,7 @@
                 <wpf:TimePicker Width="150"
                                 Margin="20,0,0,0"
                                 wpf:HintAssist.Hint="Time"
-                                SelectedTime="{Binding DateTime, UpdateSourceTrigger=PropertyChanged}" />
+                                SelectedTime="{Binding DateTime}" />
             </StackPanel>
 
             <ScrollViewer Grid.Row="1"

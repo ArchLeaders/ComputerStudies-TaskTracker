@@ -328,7 +328,7 @@
                         HorizontalAlignment="Right"
                         Background="{DynamicResource PrimaryHueDarkBrush}"
                         Command="{s:Action Save}"
-                        Focusable="False"
+                        Focusable="True"
                         Foreground="{DynamicResource SecondaryHueLightBrush}"
                         ToolTip="Save changes">
                     <wpf:PackIcon Width="26"
