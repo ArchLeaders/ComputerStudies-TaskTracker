@@ -8,7 +8,7 @@ Add any additional information in the notes section.
 
 **Requirments<br>**
 
-- <a target="_blank" href="https://discord.com">Discord</a> with a verified account.
+- <a href="https://discord.com" target="_blank">Discord</a> with a verified account.
 - PC running Windows 10 or 11.
 
 ## Criteria
