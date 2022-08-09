@@ -83,6 +83,7 @@ def load_cogs():
         """Load cogs in the cog directory"""
 
         try:
+            name = "-"
             if file.is_file() and "_view.py" not in file.name:
                 # format name
                 name = (
@@ -98,7 +99,7 @@ def load_cogs():
                 # log success
                 print(f"Loaded: cogs.{name}")
         except Exception as ex:
-            print(f"Failed to load {file} as cog.\n{ex}")
+            print(f"Failed to load {file} with name {name} as cog.\n{ex}")
             pass
 
 
