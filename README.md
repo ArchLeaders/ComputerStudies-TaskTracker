@@ -1,4 +1,4 @@
-# Computer Studies | Task Manager
+# Computer Studies | Task Tracker
 
 Simple Discord bot to track tasks and remind a user of such events
 
