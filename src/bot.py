@@ -4,7 +4,7 @@ import nextcord
 import os
 import pytz
 
-from nextcord import Color
+from nextcord import Color, Intents
 from nextcord.ext import commands
 from pathlib import Path
 
@@ -32,7 +32,9 @@ def is_local_host() -> bool:
 is_local_host()
 
 SRC: str = os.environ["SRC"]  # local and remote source directory
-BOT = commands.Bot(command_prefix=("-"))  # m-dash added for mobile support
+BOT = commands.Bot(
+    command_prefix=("-"), intents=Intents.all()
+)  # m-dash added for mobile support
 BOT_NAME = "Task Tracker"
 
 # these will be client based when testing is complete
